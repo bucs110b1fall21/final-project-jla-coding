@@ -10,7 +10,7 @@
 << [link to demo presentation slides](#) >>
 
 ### Team: << team name >>
-#### << Team Members >>
+#### Avery vonRoeschlaub, << Team Members >>
 
 ***
 
@@ -63,7 +63,7 @@ The Project is broken down into the following file structure:
 
 << Front-end lead conducted significant research on... >>
 
-### Back End Specialist - << name >>
+### Back End Specialist - Avery von Roeschlaub
 
 << The back end specialist... >>
 
