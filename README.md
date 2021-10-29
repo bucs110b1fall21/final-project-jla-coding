@@ -10,12 +10,12 @@
 << [link to demo presentation slides](#) >>
 
 ### Team: << team name >>
-#### Avery vonRoeschlaub, << Team Members >>
+#### Avery vonRoeschlaub, <<Lukas Ladekarl>>
 
 ***
 
 ## Project Description *(Software Lead)*
-<< Give an overview of your project >>
+<< A life simulator that has a satirical take on the modern cryptocurrency market as well as the way Gen Z live. There will be two forms of currency, regular USD and a singular cryptocurrency. The cryptocurrency will move at a random amount while the USD will stay the same, and the user get to move the cash from one currency to the other. The game will start off in your room with your PC which generates crypto and a little cash. The game will start as a cookie clicker as the player tries to make as much money. The User also has to survive, with there being random events and basic human necessities. We will scale by adding more events and more things on the outside to spend cash on.>>
 
 ***    
 
@@ -55,7 +55,7 @@ The Project is broken down into the following file structure:
 ## Tasks and Responsibilities *(Software Lead)*
 * You must outline the team member roles and who was responsible for each class/method, both individual and collaborative.
 
-### Software Lead - << name >>
+### Software Lead - <<Lukas Ladekarl>>
 
 << Worked as integration specialist by... >>
 
