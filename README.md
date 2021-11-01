@@ -9,8 +9,8 @@
 
 << [link to demo presentation slides](#) >>
 
-### Team: << team name >>
-#### Avery vonRoeschlaub, <<Lukas Ladekarl>>
+### Team: << JAL COIN >>
+#### Avery vonRoeschlaub, Lukas Ladekarl, Jason Zheng
 
 ***
 
@@ -59,7 +59,7 @@ The Project is broken down into the following file structure:
 
 << Worked as integration specialist by... >>
 
-### Front End Specialist - << name >>
+### Front End Specialist - << Jason Zheng >>
 
 << Front-end lead conducted significant research on... >>
 
