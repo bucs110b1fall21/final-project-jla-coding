@@ -45,6 +45,12 @@ is the only buttons the user can click on.
         * ![class diagram](assets/class_diagram.jpg)
     * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
 * Classes
+  * Player - Stores data on player state and variables such as cash and crypto amount. Also allows iteractions to occur when position and direction are correct (note: I forgot direction variable in the vars in the picture)
+  * Level - Centralizes data on object positions, walls, etc. Also provides data for each zone/level (perhaps this should be in a seperate file?)
+  * Item - pickups and inventory items that can be interacted with. Seperate from interactables as they are not zones and can exist purely in the player's inventroy
+  * Interactable - interaction zones and objects that trigger events when interacted with by player
+  * Economy - data on crypto -> cash rates and previous rates for grpah rendering 
+  * Graphics - GUI and rendering
     * << You should have a list of each of your classes with a description. >>
 
 ## Project Structure *(Software Lead)*
