@@ -20,8 +20,16 @@
 ***    
 
 ## User Interface Design *(Front End Specialist)*
-* << A wireframe or drawing of the user interface concept along with a short description of the interface. You should have one for each screen in your program. >>
-    * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
+![gamescreen](assets/gamescreen.jpg)
+The top screen shows and in game text that needs to be said. The right menu shows
+the user's dollars and JAL coins with some prescripted news. The bottom menu shows
+the food/water inventor; the user can click either hand/pocket to place food/water. The right menu shows the water, food, and tiredness bar and the clothing inventory where the user can decide to put whatever outfit they have that they want to wear. The main game screen starts off in the user's bedroom with their bed that they can sleep in, their computer where they invest in JAL Coins and the small rectangle in the bottom left represents a bed.
+
+![startend](assets/startend.jpg)
+Start screen has a start button and the end screen has a try again button, that
+is the only buttons the user can click on.
+
+* For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
 
 ***        
