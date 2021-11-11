@@ -14,4 +14,9 @@ class Controller:
         self.background.fill((250, 250, 250))  # set the background to white
         pygame.font.init()  # you have to call this at the start, if you want to use this module.
         pygame.key.set_repeat(1, 25)  # initialize a held keey to act as repeated key strikes
-        
+    
+    def mainLoop(self):
+        pass
+    
+    def gameLoop(self):
+        pass
