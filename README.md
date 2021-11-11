@@ -92,3 +92,6 @@ The Project is broken down into the following file structure:
 |  1  | Run Counter Program  | GUI window appears with count = 0  |          |
 |  2  | click count button  | display changes to count = 1 |                 |
 etc...
+
+### References
+ https://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
