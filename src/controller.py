@@ -5,6 +5,8 @@ import math
 from src import player
 
 class Controller:
+
+
     def __init__(self, width=640, height=480):
         pygame.init()
         self.width = width
@@ -15,8 +17,10 @@ class Controller:
         pygame.font.init()  # you have to call this at the start, if you want to use this module.
         pygame.key.set_repeat(1, 25)  # initialize a held keey to act as repeated key strikes
     
+    
     def mainLoop(self):
         pass
+    
     
     def gameLoop(self):
         pass

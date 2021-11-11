@@ -2,6 +2,8 @@ import pygame
 import math
 
 class Player(pygame.sprite.Sprite):
+
+
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('assets/main_character_front.png').convert_alpha()
@@ -26,9 +28,11 @@ class Player(pygame.sprite.Sprite):
         self.speed = 2
         self.reach = 20 #how far away a player can reach an interactable from
     
+    
     def goto(self, x, y):
         self.x = x
         self.y = y
+    
     
     def move(self, direction, walls): #direction is an int 0-3 and walls is a list of walls
         #note: this only moves x and y, not rect.x and rect.y
@@ -39,9 +43,11 @@ class Player(pygame.sprite.Sprite):
         if direction%2: self.x += self.speed * (direction - 2)
         else: self.y += self.speed * (direction - 1)
     
+    
     def sell_crypto(self, economics, amount):
         self.money += economics.rate * amount
         self.crypto -+ amount
+    
     
     def buy_crypto(self, economics, amount):
         self.money -= economics.rate * amount
