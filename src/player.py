@@ -52,6 +52,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.speed
     
     
+
     def sell_crypto(self, economics, amount):
         self.money += economics.rate * amount
         self.crypto -+ amount
