@@ -42,6 +42,14 @@ class Player(pygame.sprite.Sprite):
                 return
         if direction%2: self.x += self.speed * (direction - 2)
         else: self.y += self.speed * (direction - 1)
+        if direction == "U":
+            self.rect.y -= self.speed
+        elif direction == "D":
+            self.rect.y += self.speed
+        if direction == "L":
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
     
     
     def sell_crypto(self, economics, amount):
