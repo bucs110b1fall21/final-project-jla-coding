@@ -9,4 +9,5 @@ class Wall: #Note: not a sprite and invisable. If you want a sprite with collisi
     
     
     def in_wall(self, x, y):
+        #formula from https://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
         return x > x1 and x < x2 and y > y1 and y < y2

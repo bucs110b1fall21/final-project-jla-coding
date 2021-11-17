@@ -17,8 +17,13 @@ class Controller:
         pygame.font.init()  # you have to call this at the start, if you want to use this module.
         pygame.key.set_repeat(1, 25)  # initialize a held keey to act as repeated key strikes
         
-        self.player = player.Player("Player", 50, 80, "assets/player.jpg") #name, x, y, pic location
+        self.player = player.Player()
+        self.player.goto(100,100)
+        
+        self.all_sprites = pygame.sprite.Group((self.player,))
+        
         self.state = "GAME"
+    
     
     def mainLoop(self):
         while True:
@@ -34,16 +39,18 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_w:
-                        self.player.move("U")
-                    elif event.key == pygame.K_s:
-                        self.player.move("D")
-                    elif event.key == pygame.K_a:
-                        self.player.move("L")
-                    elif event.key == pygame.K_d:
-                        self.player.move("R")
+                    pressed = pygame.key.get_pressed() #allows multiple buttons to be active
+                    if pressed[pygame.K_w]:
+                        self.player.move('U', [])
+                    if pressed[pygame.K_s]:
+                        self.player.move('D', [])
+                    if pressed[pygame.K_a]:
+                        self.player.move('L', [])
+                    if pressed[pygame.K_d]:
+                        self.player.move('R', [])
 
             # redraw the entire screen
+            self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
@@ -51,6 +58,7 @@ class Controller:
 
             # update the screen
             pygame.display.flip()
+        
         
     def gameOver(self):
         self.player.kill()
