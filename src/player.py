@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         elif direction == 'L': next_x -= self.speed
         elif direction == 'R': next_x += self.speed
         for w in walls: #abandon movement if it moves you into a wall
-            if w.in_wall(next_x, next_y):
+            if w.in_wall(self, next_x, next_y):
                 return
         self.x = next_x
         self.y = next_y

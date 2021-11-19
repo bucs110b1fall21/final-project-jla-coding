@@ -3,6 +3,8 @@ import pygame
 import random
 import math
 from src import player
+from src import wall
+from src import prop
 
 class Controller:
 
@@ -20,9 +22,14 @@ class Controller:
         self.player = player.Player()
         self.player.goto(100,100)
         
-        self.all_sprites = pygame.sprite.Group((self.player,))
+        self.props = pygame.sprite.Group()
+        self.props.add(prop.Prop('assets/black_pixel.png', 300, 0, 100, 200))
+        
+        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props))
         
         self.state = "GAME"
+        
+        self.walls = [wall.Wall(300,0,400,200)]
     
     
     def mainLoop(self):
@@ -41,13 +48,13 @@ class Controller:
                 elif event.type == pygame.KEYDOWN:
                     pressed = pygame.key.get_pressed() #allows multiple buttons to be active
                     if pressed[pygame.K_w]:
-                        self.player.move('U', [])
+                        self.player.move('U', self.walls)
                     if pressed[pygame.K_s]:
-                        self.player.move('D', [])
+                        self.player.move('D', self.walls)
                     if pressed[pygame.K_a]:
-                        self.player.move('L', [])
+                        self.player.move('L', self.walls)
                     if pressed[pygame.K_d]:
-                        self.player.move('R', [])
+                        self.player.move('R', self.walls)
 
             # redraw the entire screen
             self.all_sprites.update()

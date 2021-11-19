@@ -3,7 +3,7 @@ import pygame
 class Prop(pygame.sprite.Sprite):
     
     
-    def __init__(self, img_path, width, height, x, y):
+    def __init__(self, img_path, x, y, width, height):
         pygame.sprite.Sprite.__init__(self)
         #scale if both width and height are > 0, else don't
         if width > 0 and height > 0:
