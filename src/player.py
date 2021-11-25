@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.inventory = []
         
         #misc stats
-        self.speed = 2
+        self.speed = 0.15
         self.reach = 20 #how far away a player can reach an interactable from
     
     
@@ -33,17 +33,20 @@ class Player(pygame.sprite.Sprite):
         self.x = x
         self.y = y
     
+    def face(self, direction):
+        self.direction = direction
     
-    def move(self, direction, walls):
+    
+    def move(self, direction, walls, dt): #dt = change in time
         #note: this only moves x and y, not rect.x and rect.y
         self.direction = direction
         
         next_x = self.x
         next_y = self.y
-        if direction == 'U': next_y -= self.speed
-        elif direction == 'D': next_y += self.speed
-        elif direction == 'L': next_x -= self.speed
-        elif direction == 'R': next_x += self.speed
+        if direction == 'U': next_y -= self.speed * dt
+        elif direction == 'D': next_y += self.speed * dt
+        elif direction == 'L': next_x -= self.speed * dt
+        elif direction == 'R': next_x += self.speed * dt
         for w in walls: #abandon movement if it moves you into a wall
             if w.in_wall(self, next_x, next_y):
                 return

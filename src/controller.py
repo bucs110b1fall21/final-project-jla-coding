@@ -2,6 +2,7 @@ import sys
 import pygame
 import random
 import math
+import json
 from src import player
 from src import wall
 from src import prop
@@ -22,14 +23,39 @@ class Controller:
         self.player = player.Player()
         self.player.goto(100,100)
         
+        level_data_ptr = open("src/level_data.json",'r')
+        self.level_data = json.load(level_data_ptr)
+        level_data_ptr.close()
+        
         self.props = pygame.sprite.Group()
-        self.props.add(prop.Prop('assets/black_pixel.png', 300, 0, 100, 200))
-        
-        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props))
-        
+        self.walls = []
+        self.interactables = pygame.sprite.Group()
+        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
+        self.load_level("wall_test")
         self.state = "GAME"
-        
-        self.walls = [wall.Wall(300,0,400,200)]
+    
+    
+    def load_level(self, level_name):
+        data = self.level_data[level_name]
+        for prop_data in data["props"]:
+            self.props.add(prop.Prop(prop_data[0], prop_data[1], prop_data[2], prop_data[3], prop_data[4]))
+        for wall_data in data["walls"]:
+            self.walls.append(wall.Wall(wall_data[0], wall_data[1], wall_data[2], wall_data[3]))
+        for interactable_data in data["interactables"]:
+            self.interactables.add(interactable.Interactable(interactable_data[0], interactable_data[1], interactable_data[2], interactable_data[3]))
+        player_data = data["player_data"]
+        self.player.goto(player_data[0], player_data[1])
+        self.player.face(player_data[2])
+        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
+    
+    
+    def unload_level(self):
+        for prop in self.props:
+            prop.kill()
+        while walls:
+            walls[0].pop()
+        for interactable in interactables:
+            interactable.kill()
     
     
     def mainLoop(self):
@@ -41,28 +67,29 @@ class Controller:
     
     
     def gameLoop(self):
+        loop_time = pygame.time.Clock() #keeps track of time so player knows how much to move
+        loop_time.tick() #sets the time to 0
         while self.state == "GAME":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    pressed = pygame.key.get_pressed() #allows multiple buttons to be active
-                    if pressed[pygame.K_w]:
-                        self.player.move('U', self.walls)
-                    if pressed[pygame.K_s]:
-                        self.player.move('D', self.walls)
-                    if pressed[pygame.K_a]:
-                        self.player.move('L', self.walls)
-                    if pressed[pygame.K_d]:
-                        self.player.move('R', self.walls)
-
+            #if this is an event it has trouble updating when a key stops being pressed
+            pressed = pygame.key.get_pressed() #allows multiple buttons to be active
+            dt = loop_time.tick() #gets change in time  (dt)
+            if pressed[pygame.K_w]:
+                self.player.move('U', self.walls, dt)
+            if pressed[pygame.K_s]:
+                self.player.move('D', self.walls, dt)
+            if pressed[pygame.K_a]:
+                self.player.move('L', self.walls, dt)
+            if pressed[pygame.K_d]:
+                self.player.move('R', self.walls, dt)
             # redraw the entire screen
             self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
             self.all_sprites.draw(self.screen)
-
             # update the screen
             pygame.display.flip()
         
