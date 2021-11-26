@@ -1,0 +1,14 @@
+{
+    "wall_test":{
+        "walls":[
+            [300,0,400,200]
+        ],
+        "props":[
+            ["assets/black_pixel.png", 300, 0, 100, 200]
+        ],
+        "interactables":[
+            
+        ],
+        "player_data":[100,100,"D"]
+    }
+}
