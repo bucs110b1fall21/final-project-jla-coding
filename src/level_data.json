@@ -1,4 +1,20 @@
 {
+    "empty":{
+        "walls":[
+        
+        ],
+        "props":[
+        
+        ],
+        "interactables":[
+        
+        ],
+        "player_data":[0,0,"D"]
+    },
+    
+    
+    
+    
     "wall_test":{
         "walls":[
             [300,0,400,200]
@@ -8,6 +24,26 @@
         ],
         "interactables":[
             
+        ],
+        "player_data":[100,100,"D"]
+    },
+    
+    
+    
+    
+    "interactable_test":{
+        "walls":[
+            [0, 0, 0, 480],
+            [0, 0, 640, 0],
+            [640, 0, 640, 480],
+            [0, 480, 640, 480]
+        ],
+        "props":[
+            
+        ],
+        "interactables":[
+            ["computer", "assets/black_pixel.png", 300, 300, 30, 30],
+            ["sink", "assets/black_pixel.png", 400, 300, 30, 30]
         ],
         "player_data":[100,100,"D"]
     }
