@@ -16,8 +16,8 @@ class Player(pygame.sprite.Sprite):
         self.direction = 'D'
         self.money = 0 #in cents, not dollars
         self.crypto = 0
-        self.hunger = 100 #temp value, max value can be changed later
-        self.thirst = 100 #see above
+        self.hunger = 100
+        self.thirst = 100
         self.inventory = []
         #misc stats
         self.speed = 200 #measured in pixels per sec
