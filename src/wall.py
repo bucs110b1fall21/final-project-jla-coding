@@ -9,5 +9,9 @@ class Wall: #Note: not a sprite and invisable. If you want a sprite with collisi
     
     
     def in_wall(self, player, next_x, next_y):
+        '''
+            Returns whether or not the player will be in a wall with specified x and y
+            args: self, Player, int/float, int/float
+        '''
         #formula x1 <= y2 && y1 <= x2 for range(x1,y1) and range(x2,y2) is from https://stackoverflow.com/questions/3269434/whats-the-most-efficient-way-to-test-two-integer-ranges-for-overlap
         return next_x <= self.x2 and next_x + player.rect.width >= self.x1 and next_y <= self.y2 and next_y + player.rect.height >= self.y1

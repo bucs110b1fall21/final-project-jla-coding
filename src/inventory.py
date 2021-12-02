@@ -111,7 +111,7 @@ class Inventory:
 				slot.draw(screen)
 			for slot in self.inventory_slots:
 				slot.drawItems(screen)
-	
+
 class InventorySlot:
 	def __init__(self, x, y):
 		self.x = x

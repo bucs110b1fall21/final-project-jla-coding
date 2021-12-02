@@ -13,3 +13,12 @@ class Prop(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+    
+    def goto(self, x, y):
+        '''
+            Moves sprite to specified x and y
+            args: self, int, int
+            returns: None
+        '''
+        self.rect.x = x
+        self.rect.y = y
