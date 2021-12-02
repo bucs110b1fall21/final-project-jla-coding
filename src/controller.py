@@ -6,10 +6,9 @@ import json
 from src import player
 from src import wall
 from src import prop
+from src.inventory import Inventory
 
 class Controller:
-
-
     def __init__(self, width=640, height=480):
         pygame.init()
         self.width = width
@@ -33,7 +32,7 @@ class Controller:
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
         self.load_level("wall_test")
         self.state = "GAME"
-    
+
     
     def load_level(self, level_name):
         data = self.level_data[level_name]
@@ -47,7 +46,7 @@ class Controller:
         self.player.goto(player_data[0], player_data[1])
         self.player.face(player_data[2])
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
-    
+        self.inventory = Inventory(self.player, 5, 5, 1)
     
     def unload_level(self):
         for prop in self.props:
@@ -84,6 +83,8 @@ class Controller:
                 self.player.move('L', self.walls, dt)
             if pressed[pygame.K_d]:
                 self.player.move('R', self.walls, dt)
+            if pressed[pygame.K_i]:
+                self.inventory.toggleInventory()
             # redraw the entire screen
             self.all_sprites.update()
             self.screen.blit(self.background, (0, 0))
@@ -92,7 +93,8 @@ class Controller:
             self.all_sprites.draw(self.screen)
             # update the screen
             pygame.display.flip()
-        
+            self.inventory.draw(self.screen)
+ 
         
     def gameOver(self):
         self.player.kill()
