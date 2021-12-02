@@ -6,11 +6,8 @@ import json
 from src import player
 from src import wall
 from src import prop
-<<<<<<< HEAD
 from src.inventory import Inventory
-=======
 from src import interactable
->>>>>>> 135f68172273e48f2d8a1be4d1f99910f7b10779
 
 class Controller:
     def __init__(self, width=640, height=480):
@@ -32,7 +29,6 @@ class Controller:
         self.level_data = json.load(level_data_ptr) #saves dictionary of levels and their data
         level_data_ptr.close()
         
-<<<<<<< HEAD
         self.props = pygame.sprite.Group()
         self.walls = []
         self.interactables = pygame.sprite.Group()
@@ -40,7 +36,6 @@ class Controller:
         self.load_level("wall_test")
         self.state = "GAME"
 
-=======
         self.props = pygame.sprite.Group() #group of props in scene
         self.walls = [] #list of walls in scene
         self.interactables = pygame.sprite.Group() #group of interactables in scene
@@ -56,8 +51,6 @@ class Controller:
         self.load_level("interactable_test") #load test level
         self.state = "GAME" #set game to run
     
->>>>>>> 135f68172273e48f2d8a1be4d1f99910f7b10779
-    
     def load_level(self, level_name):
         '''
             Loads the specified level from level_data
@@ -72,17 +65,13 @@ class Controller:
         for interactable_data in data["interactables"]: #for interactables in interactable list, and the interactable
             self.interactables.add(interactable.Interactable(interactable_data[0], interactable_data[1], interactable_data[2], interactable_data[3], interactable_data[4], interactable_data[5]))
         player_data = data["player_data"]
-<<<<<<< HEAD
         self.player.goto(player_data[0], player_data[1])
         self.player.face(player_data[2])
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
         self.inventory = Inventory(self.player, 5, 5, 1)
-=======
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
-    
->>>>>>> 135f68172273e48f2d8a1be4d1f99910f7b10779
     
     def unload_level(self):
         '''
@@ -155,10 +144,8 @@ class Controller:
                 self.player.move('L', self.walls, dt)
             if pressed[pygame.K_d]:
                 self.player.move('R', self.walls, dt)
-<<<<<<< HEAD
             if pressed[pygame.K_i]:
                 self.inventory.toggleInventory()
-=======
             if pressed[pygame.K_e] and not prev_key_state["e"]: #interacts with objects (will not work if e was pressed last frame)
                 interactions = []
                 for interact in self.interactables: #create list of interactions this frame
@@ -169,7 +156,7 @@ class Controller:
             prev_key_state["e"] = pressed[pygame.K_e]
             if pressed[pygame.K_i]: #for testing (i stands for info, add whatever needs testing)
                 print(self.player.hunger, self.player.thirst, self.player.direction)
->>>>>>> 135f68172273e48f2d8a1be4d1f99910f7b10779
+
             # redraw the entire screen
             if self.debug_mode:
                 self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
@@ -177,7 +164,7 @@ class Controller:
             self.all_sprites.update()
             self.player.update_health(dt) #update player hunger and thirst
             self.screen.blit(self.background, (0, 0))
-<<<<<<< HEAD
+
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
             self.all_sprites.draw(self.screen)
@@ -185,11 +172,8 @@ class Controller:
             pygame.display.flip()
             self.inventory.draw(self.screen)
  
-=======
             self.all_sprites.draw(self.screen) #draw sprites
             pygame.display.flip() # update the screen
-        
->>>>>>> 135f68172273e48f2d8a1be4d1f99910f7b10779
         
     def gameOver(self):
         '''
