@@ -13,7 +13,7 @@ class Controller:
     def __init__(self, width=640, height=480):
         pygame.init()
         
-        self.debug_mode = True #change this to turn debug mode on and off. Feel free to add or remove stuff from debug mode
+        self.debug_mode = False #change this to turn debug mode on and off. Feel free to add or remove stuff from debug mode
         
         self.width = width
         self.height = height
