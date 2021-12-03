@@ -1,10 +1,9 @@
 import pygame
 
 WHITE = (255, 255, 255)
-WIDTH = 800
-STATPOSX = 50
+WIDTH = 768
 TILESIZE = 32
-UIHEIGTH = 300
+UIHEIGTH = 500
 INVTILESIZE = 48
 
 
@@ -18,8 +17,6 @@ class Inventory:
 		self.display_inventory = False
 		self.player = player
 		self.appendSlots()
-
-
 		self.movingitem = None
 		self.movingitemslot = None
 		
@@ -28,10 +25,6 @@ class Inventory:
 			for x in range(WIDTH//2 - ((INVTILESIZE+2) * self.cols)//2, WIDTH//2 + ((INVTILESIZE+2) * self.cols) //2, INVTILESIZE+2):
 				for y in range(UIHEIGTH, UIHEIGTH+INVTILESIZE * self.rows, INVTILESIZE+2):
 					self.inventory_slots.append(InventorySlot(x, y))
-
-		
-
-
 
 	def toggleInventory(self):
 		self.display_inventory = not self.display_inventory

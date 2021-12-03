@@ -6,24 +6,24 @@ import json
 from src import player
 from src import wall
 from src import prop
-from src.inventory import Inventory
 from src import interactable
+from src.inventory import Inventory,InventorySlot,EquipableSlot,InventoryItem,Consumable,Equipable
 
 class Controller:
-    def __init__(self, width=640, height=480):
+    def __init__(self, width=1024, height=768):
         pygame.init()
         
-        self.debug_mode = False #change this to turn debug mode on and off. Feel free to add or remove stuff from debug mode
+        #self.debug_mode = False #change this to turn debug mode on and off. Feel free to add or remove stuff from debug mode
         
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.background.fill((250, 250, 250))  # set the background to white
+        self.background.fill((100, 100, 100))  # set the background to white
         pygame.font.init()  # you have to call this at the start, if you want to use this module.
         pygame.key.set_repeat(1, 25)  #this may not actually be needed anymore, but it might come up later so I'm keeping it in
         
-        self.player = player.Player()
+        self.player = player.Player(self)
         
         level_data_ptr = open("src/level_data.json",'r')
         self.level_data = json.load(level_data_ptr) #saves dictionary of levels and their data
@@ -39,15 +39,15 @@ class Controller:
         self.props = pygame.sprite.Group() #group of props in scene
         self.walls = [] #list of walls in scene
         self.interactables = pygame.sprite.Group() #group of interactables in scene
-        self.debug_props = pygame.sprite.Group()
+        #self.debug_props = pygame.sprite.Group()
         
-        if self.debug_mode: #add debug sprites here
-            self.debug_interact_x = prop.Prop("assets/black_pixel.png", self.player.rect.center[0] - self.player.reach, self.player.rect.center[1], self.player.reach*2, 1) #sprite showing interaction zone in x direction
-            self.debug_interact_y = prop.Prop("assets/black_pixel.png", self.player.rect.center[0], self.player.rect.center[1] - self.player.reach, 1, self.player.reach*2) #sprite showing interaction zone in x direction
-            self.debug_props.add(self.debug_interact_x) #add debug sprites
-            self.debug_props.add(self.debug_interact_y)
+        #if self.debug_mode: #add debug sprites here
+            #self.debug_interact_x = prop.Prop("assets/black_pixel.png", self.player.rect.center[0] - self.player.reach, self.player.rect.center[1], self.player.reach*2, 1) #sprite showing interaction zone in x direction
+            #self.debug_interact_y = prop.Prop("assets/black_pixel.png", self.player.rect.center[0], self.player.rect.center[1] - self.player.reach, 1, self.player.reach*2) #sprite showing interaction zone in x direction
+            #self.debug_props.add(self.debug_interact_x) #add debug sprites
+            #self.debug_props.add(self.debug_interact_y)
         
-        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #group of all sprites in scene
+        #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #group of all sprites in scene
         self.load_level("interactable_test") #load test level
         self.state = "GAME" #set game to run
     
@@ -68,10 +68,10 @@ class Controller:
         self.player.goto(player_data[0], player_data[1])
         self.player.face(player_data[2])
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
-        self.inventory = Inventory(self.player, 5, 5, 1)
+        self.inventory = Inventory(self.player,5,5,1)
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
-        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
+        #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
     
     def unload_level(self):
         '''
@@ -144,7 +144,7 @@ class Controller:
                 self.player.move('L', self.walls, dt)
             if pressed[pygame.K_d]:
                 self.player.move('R', self.walls, dt)
-            if pressed[pygame.K_i]:
+            if pressed[pygame.K_v]:
                 self.inventory.toggleInventory()
             if pressed[pygame.K_e] and not prev_key_state["e"]: #interacts with objects (will not work if e was pressed last frame)
                 interactions = []
@@ -158,22 +158,20 @@ class Controller:
                 print(self.player.hunger, self.player.thirst, self.player.direction)
 
             # redraw the entire screen
-            if self.debug_mode:
-                self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
-                self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
+            #if self.debug_mode:
+                #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
+                #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
             self.player.update_health(dt) #update player hunger and thirst
             self.screen.blit(self.background, (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
-            self.all_sprites.draw(self.screen)
-            # update the screen
-            pygame.display.flip()
-            self.inventory.draw(self.screen)
  
             self.all_sprites.draw(self.screen) #draw sprites
+            self.inventory.draw(self.screen)
             pygame.display.flip() # update the screen
+
         
     def gameOver(self):
         '''
