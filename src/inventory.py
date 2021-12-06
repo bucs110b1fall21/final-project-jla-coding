@@ -136,15 +136,15 @@ class InventoryItem:
 		self.is_moving = False
 
 class Consumable(InventoryItem):
-	def __init__(self, img, value, hunger_gain=10, thirst_gain=10):
+	def __init__(self, img, value, hunger_gain, thirst_gain):
 		InventoryItem.__init__(self, img, value)
 		self.hunger_gain = hunger_gain
 		self.thirst_gain = thirst_gain
 
 	def use(self, inv, target):
 		inv.removeItemInv(self)
-		target.add_hunger(self.hunger_gain)
-		target.add_thirst(self.thirst_gain)
+		target.eat(self.hunger_gain)
+		target.drink(self.thirst_gain)
 
 class Equipable(InventoryItem):
 	def __init__(self, img, value):

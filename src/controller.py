@@ -10,19 +10,18 @@ from src import interactable
 from src.inventory import Inventory,InventorySlot,EquipableSlot,InventoryItem,Consumable,Equipable
 
 class Controller:
-    def __init__(self, width=1024, height=768):
+    def __init__(self, width=800, height=600):
         pygame.init()
         
         #self.debug_mode = False #change this to turn debug mode on and off. Feel free to add or remove stuff from debug mode
-        
+        self.myfont = pygame.font.SysFont('Calibri', 22)
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background.fill((100, 100, 100))  # set the background to white
-        pygame.font.init()  # you have to call this at the start, if you want to use this module.
-        pygame.key.set_repeat(1, 25)  #this may not actually be needed anymore, but it might come up later so I'm keeping it in
-        
+        pygame.font.init()  
+        pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
         
         level_data_ptr = open("src/level_data.json",'r')
@@ -31,23 +30,19 @@ class Controller:
         
         self.props = pygame.sprite.Group()
         self.walls = []
-        self.interactables = pygame.sprite.Group()
+        self.interactables = pygame.sprite.Group() #group of interacts in scene
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
         self.load_level("wall_test")
         self.state = "GAME"
 
-        self.props = pygame.sprite.Group() #group of props in scene
-        self.walls = [] #list of walls in scene
-        self.interactables = pygame.sprite.Group() #group of interactables in scene
-        #self.debug_props = pygame.sprite.Group()
-        
+        #self.debug_props = pygame.sprite.Group()       
         #if self.debug_mode: #add debug sprites here
             #self.debug_interact_x = prop.Prop("assets/black_pixel.png", self.player.rect.center[0] - self.player.reach, self.player.rect.center[1], self.player.reach*2, 1) #sprite showing interaction zone in x direction
             #self.debug_interact_y = prop.Prop("assets/black_pixel.png", self.player.rect.center[0], self.player.rect.center[1] - self.player.reach, 1, self.player.reach*2) #sprite showing interaction zone in x direction
             #self.debug_props.add(self.debug_interact_x) #add debug sprites
-            #self.debug_props.add(self.debug_interact_y)
-        
+            #self.debug_props.add(self.debug_interact_y)    
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #group of all sprites in scene
+
         self.load_level("interactable_test") #load test level
         self.state = "GAME" #set game to run
     
@@ -72,6 +67,8 @@ class Controller:
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
+        food = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
+        self.inventory.addItemInv(food)
     
     def unload_level(self):
         '''
@@ -113,9 +110,25 @@ class Controller:
                 self.player.drink(30)
             else:
                 raise ValueError
+
+    def draw_player_stats(self):
+        self.hunger = self.myfont.render(f"{self.player.hunger}", False, (250,250,250))
+        self.thirst = self.myfont.render(f"{self.player.thirst}" , False, (250,250,250))
+        self.money = self.myfont.render(f"{self.player.money}" , False, (250,250,250))
+        self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
+        self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
+        self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
+        self.moneyimg = pygame.image.load('assets/RedbullCan.png').convert_alpha()
+        self.coinimg = pygame.image.load('assets/WonsterEnergy.png').convert_alpha()
+        self.screen.blit(self.hunger,(50,8))
+        self.screen.blit(self.thirst,(50,58))
+        self.screen.blit(self.money,(50,108))
+        self.screen.blit(self.coins,(50,158))
+        self.screen.blit(self.hungerimg,(20,10))
+        self.screen.blit(self.thirstimg,(20,60))
+        self.screen.blit(self.moneyimg,(20,110))
+        self.screen.blit(self.coinimg,(20,160)) 
         
-    
-    
     def gameLoop(self):
         '''
             Game loop
@@ -146,6 +159,16 @@ class Controller:
                 self.player.move('R', self.walls, dt)
             if pressed[pygame.K_v]:
                 self.inventory.toggleInventory()
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+                if self.inventory.display_inventory:
+                    mouse_pos = pygame.mouse.get_pos()
+                    self.inventory.checkSlot(self.screen, mouse_pos)
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if self.inventory.display_inventory:
+                    self.inventory.moveItem(self.screen)
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                if self.inventory.display_inventory:
+                    self.inventory.placeItem(self.screen)
             if pressed[pygame.K_e] and not prev_key_state["e"]: #interacts with objects (will not work if e was pressed last frame)
                 interactions = []
                 for interact in self.interactables: #create list of interactions this frame
@@ -167,7 +190,8 @@ class Controller:
 
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
- 
+
+            self.draw_player_stats()
             self.all_sprites.draw(self.screen) #draw sprites
             self.inventory.draw(self.screen)
             pygame.display.flip() # update the screen
@@ -180,9 +204,10 @@ class Controller:
             returns: None
         '''
         self.player.kill() #this is probably not needed since it removes the player sprite
-        myfont = pygame.font.SysFont(None, 30)
+        self.background.fill((255, 0, 0))
+        myfont = pygame.font.SysFont(None, 40)
         message = myfont.render('Game Over', False, (0, 0, 0))
-        self.screen.blit(message, (self.width / 2, self.height / 2))
+        self.screen.blit(message, (self.width / 3, self.height / 3))
         pygame.display.flip()
         while True:
             for event in pygame.event.get(): #make sure you can quit in gameover
