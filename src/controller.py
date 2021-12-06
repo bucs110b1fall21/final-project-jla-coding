@@ -4,6 +4,7 @@ import random
 import math
 import json
 from src import player
+from src import economy
 from src import wall
 from src import prop
 from src import interactable

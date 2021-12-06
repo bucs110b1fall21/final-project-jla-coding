@@ -1,4 +1,5 @@
 import pygame
+from src import economy
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,game):
@@ -13,7 +14,8 @@ class Player(pygame.sprite.Sprite):
         self.y = 0
         self.direction = 'D'
         self.money = 100000 #in cents, not dollars
-        self.crypto = 0
+        econ =  economy.Economy()
+        self.crypto = econ.ret()
         self.hunger = 100
         self.thirst = 100
         #misc stats
