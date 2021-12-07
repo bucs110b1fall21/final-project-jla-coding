@@ -1,6 +1,8 @@
 import pygame
+from src import economy
 
 class Player(pygame.sprite.Sprite):
+<<<<<<< HEAD
 
     
     player_sprites = {
@@ -13,6 +15,9 @@ class Player(pygame.sprite.Sprite):
     
 
     def __init__(self):
+=======
+    def __init__(self,game):
+>>>>>>> 803a0fcaf53e81c5bd89365cdb2ccf6d4a0569b0
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load('assets/CharacterFront.png').convert_alpha()
         self.image = pygame.transform.scale(player_img, (player_img.get_width()*2, player_img.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
@@ -23,19 +28,23 @@ class Player(pygame.sprite.Sprite):
         self.x = 0
         self.y = 0
         self.direction = 'D'
-        self.money = 0 #in cents, not dollars
-        self.crypto = 0
+        self.money = 100000 #in cents, not dollars
+        econ =  economy.Economy()
+        self.crypto = econ.ret()
         self.hunger = 100
         self.thirst = 100
-        self.inventory = []
         #misc stats
         self.speed = 200 #measured in pixels per sec
         self.reach = 60 #how far away a player can reach an interactable from
         self.thirst_psec = -1 #thirst change per sec
         self.hunger_psec = -1 #hunger change per sec
+<<<<<<< HEAD
         self.walk_animation = (0, 0)
     
     
+=======
+        self.game = game
+>>>>>>> 803a0fcaf53e81c5bd89365cdb2ccf6d4a0569b0
     
     def goto(self, x, y):
         '''
@@ -81,29 +90,44 @@ class Player(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
         self.x = next_x
         self.y = next_y
+        if self.game.inventory.display_inventory != True:
+            self.x += 0
+            self.y += 0
+            #self.check_collision()
+
     
-    
-    def eat(self, amount):
+    def eat(self, hunger_gain):
         '''
             Refills hunger by amount
             args: self, int/float
             returns: None
         '''
-        self.hunger = self.hunger + amount
+        self.hunger += hunger_gain
         if self.hunger > 100:
             self.hunger = 100
     
     
-    def drink(self, amount):
+    def drink(self, thirst_gain):
         '''
             Refills thirst by amount
             args: self, int/float
             returns: None
         '''
-        self.thirst = self.thirst + amount
+        self.thirst += thirst_gain
         if self.thirst > 100:
             self.thirst = 100
-    
+
+    def check_collision(self):
+                self.check_food()
+                self.check_water()
+
+    def check_food(self):
+        if self.x == self.food.x and self.y == self.food.y:
+            self.inventory.addItemInv(food)
+
+    def check_beverage(self):
+        if self.x == self.beverage.x and self.y == self.beverage.y:
+            self.inventory.addItemInv(beverage)  
     
     def update_health(self, dt):
         '''
