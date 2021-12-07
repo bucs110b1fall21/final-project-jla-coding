@@ -1,23 +1,18 @@
 import pygame
 from src import economy
 
-class Player(pygame.sprite.Sprite):
-<<<<<<< HEAD
-
-    
-    player_sprites = {
+PLAYER_SPRITES = {
         'U': ['assets/CharacterBack.png','assets/CharacterBack.png'],
         'D': ['assets/CharacterFront.png','assets/CharacterFront.png'],
         'L': ['assets/CharacterLeftSide.png','assets/CharacterLeftSide.png'],
         'R': ['assets/CharacterRightSide.png','assets/CharacterRightSide.png']
-    }
-    
-    
+}
+ANIMATION_LENGTH = 500 #in milliseconds
 
-    def __init__(self):
-=======
+class Player(pygame.sprite.Sprite):
+    
+    
     def __init__(self,game):
->>>>>>> 803a0fcaf53e81c5bd89365cdb2ccf6d4a0569b0
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load('assets/CharacterFront.png').convert_alpha()
         self.image = pygame.transform.scale(player_img, (player_img.get_width()*2, player_img.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
@@ -38,13 +33,9 @@ class Player(pygame.sprite.Sprite):
         self.reach = 60 #how far away a player can reach an interactable from
         self.thirst_psec = -1 #thirst change per sec
         self.hunger_psec = -1 #hunger change per sec
-<<<<<<< HEAD
-        self.walk_animation = (0, 0)
-    
-    
-=======
+        self.is_moving = False
         self.game = game
->>>>>>> 803a0fcaf53e81c5bd89365cdb2ccf6d4a0569b0
+
     
     def goto(self, x, y):
         '''
@@ -63,9 +54,6 @@ class Player(pygame.sprite.Sprite):
             returns: None
         '''
         self.direction = direction
-        self.walk_animation = (0, 0)
-        next_sprite = player_sprites[direction][walk_animation[2]]
-        self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
     
     
     def move(self, direction, walls, dt): #dt = change in time in milliseconds
@@ -74,6 +62,9 @@ class Player(pygame.sprite.Sprite):
             args: String ('U','D','L', or 'R'), List (Walls), int/float
         '''
         #note: this only moves x and y, not rect.x and rect.y
+        if self.game.inventory.display_inventory:
+            return
+        is_moving = True
         self.direction = direction
         next_x = self.x
         next_y = self.y
@@ -84,17 +75,9 @@ class Player(pygame.sprite.Sprite):
         for w in walls: #abandon movement if it moves you into a wall
             if w.in_wall(self, next_x, next_y):
                 return
-        if (self.walk_animation[0] + dt)%500 < (self.walk_animation[0])%500:
-            self.walk_animation = (self.walk_animation[0]+dt, direction, (walk_animation[2]+1)%2)
-            next_sprite = player_sprites[direction][walk_animation[2]]
-            self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
         self.x = next_x
         self.y = next_y
-        if self.game.inventory.display_inventory != True:
-            self.x += 0
-            self.y += 0
-            #self.check_collision()
-
+        
     
     def eat(self, hunger_gain):
         '''
@@ -176,4 +159,11 @@ class Player(pygame.sprite.Sprite):
         #update rect pos to match x and y
         self.rect.x = round(self.x)
         self.rect.y = round(self.y)
-        
+        if self.is_moving:
+            animation_num = (0 if pygame.time.get_ticks() % ANIMATION_LENGTH < ANIMATION_LENGTH/2 else 1)
+            next_sprite = pygame.image.load( PLAYER_SPRITES[self.direction][animation_num] ).convert_alpha()
+            self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width(), next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
+        else:
+            next_sprite = pygame.image.load( PLAYER_SPRITES[self.direction][0] ).convert_alpha()
+            self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
+        is_moviing = False
