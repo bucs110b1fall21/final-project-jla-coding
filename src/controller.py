@@ -141,7 +141,10 @@ class Controller:
         '''
     
         loop_time = pygame.time.Clock() #keeps track of time since last frame
-        prev_key_state = {"e": pygame.key.get_pressed()[pygame.K_e]} #last press state of key
+        prev_key_state = {
+            "e": pygame.key.get_pressed()[pygame.K_e],
+            "v": pygame.key.get_pressed()[pygame.K_v]
+            } #last press state of key
         loop_time.tick() #sets the time to 0
         while self.state == "GAME":
             dt = loop_time.tick(60) #records dt, the time the last frame took in milliseconds and caps framerate at 60fps
@@ -162,7 +165,7 @@ class Controller:
                 self.player.move('L', self.walls, dt)
             if pressed[pygame.K_d]:
                 self.player.move('R', self.walls, dt)
-            if pressed[pygame.K_v]:
+            if pressed[pygame.K_v] and not prev_key_state["v"]:
                 self.inventory.toggleInventory()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 if self.inventory.display_inventory:
@@ -182,6 +185,7 @@ class Controller:
                         interactions.append(interaction) #add interaction if interaction is not None
                 self.handle_interactions(interactions) #handle interactions
             prev_key_state["e"] = pressed[pygame.K_e]
+            prev_key_state["v"] = pressed[pygame.K_v]
             if pressed[pygame.K_i]: #for testing (i stands for info, add whatever needs testing)
                 print(self.player.hunger, self.player.thirst, self.player.direction)
 
