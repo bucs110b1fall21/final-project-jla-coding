@@ -68,6 +68,8 @@ class Controller:
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
+        #food_image = pygame.image.load('assets/WacDonaldsBag.png')
+        #food_image = pygame.transform.scale(food_image, (30,30))
         food = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
         self.inventory.addItemInv(food)
     

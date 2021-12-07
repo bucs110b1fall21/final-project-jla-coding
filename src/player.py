@@ -17,8 +17,8 @@ class Player(pygame.sprite.Sprite):
         player_img = pygame.image.load('assets/CharacterFront.png').convert_alpha()
         self.image = pygame.transform.scale(player_img, (player_img.get_width()*2, player_img.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
         self.rect = self.image.get_rect() #needs to be changed because of bad collision
-        self.rect.x = 100
-        self.rect.y = 100
+        self.rect.x = 1000
+        self.rect.y = 1000
         #rect.x can't be float, so more control can be gained from a spereate x and y
         self.x = 0
         self.y = 0
