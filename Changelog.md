@@ -13,4 +13,5 @@
 - implemented basic thirst and hunger mechanics (currently only thirst can be refilled using a sink)
 - added height and width to interactables
 - added goto method to props
+- added price moment for coin
 - probably some other stuff I forgot
