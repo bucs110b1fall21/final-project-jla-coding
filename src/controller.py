@@ -19,7 +19,7 @@ class Controller:
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.background.fill((100, 100, 100))  # set the background to white
+        self.background.fill((100, 100, 100))  # set the background to grey
         pygame.font.init()  
         pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
@@ -112,8 +112,9 @@ class Controller:
                 raise ValueError
 
     def draw_player_stats(self):
-        self.hunger = self.myfont.render(f"{self.player.hunger}", False, (250,250,250))
-        self.thirst = self.myfont.render(f"{self.player.thirst}" , False, (250,250,250))
+        
+        self.hunger = self.myfont.render(f"{int(self.player.hunger)}", False, (250,250,250))
+        self.thirst = self.myfont.render(f"{int(self.player.thirst)}" , False, (250,250,250))
         self.money = self.myfont.render(f"{self.player.money}" , False, (250,250,250))
         self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
         self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
@@ -135,6 +136,7 @@ class Controller:
             args: self
             returns: None
         '''
+    
         loop_time = pygame.time.Clock() #keeps track of time since last frame
         prev_key_state = {"e": pygame.key.get_pressed()[pygame.K_e]} #last press state of key
         loop_time.tick() #sets the time to 0
@@ -205,6 +207,7 @@ class Controller:
         '''
         self.player.kill() #this is probably not needed since it removes the player sprite
         self.background.fill((255, 0, 0))
+        self.screen.blit(self.background, (0, 0))
         myfont = pygame.font.SysFont(None, 40)
         message = myfont.render('Game Over', False, (0, 0, 0))
         self.screen.blit(message, (self.width / 3, self.height / 3))
