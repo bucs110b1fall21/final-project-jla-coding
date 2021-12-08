@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.direction = 'D'
         self.money = 100000 #in cents, not dollars
         econ =  economy.Economy()
-        self.crypto = econ.ret()
+        self.crypto = econ.changerate()
         self.hunger = 100
         self.thirst = 100
         #misc stats
@@ -120,6 +120,12 @@ class Player(pygame.sprite.Sprite):
         '''
         self.thirst += self.thirst_psec * dt/1000
         self.hunger += self.hunger_psec * dt/1000
+
+    #def update_wealth(self):
+        #econ =  economy.Economy()
+        #self.crypto = econ.changerate()
+
+        
     
 
     def sell_crypto(self, economics, amount):

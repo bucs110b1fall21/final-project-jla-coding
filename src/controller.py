@@ -19,9 +19,9 @@ class Controller:
         self.width = width
         self.height = height
         self.screen = pygame.display.set_mode((self.width, self.height))
+        #self.background.fill((100, 100, 100))
         self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.background.fill((100, 100, 100))  # set the background to grey
-        self.background = pygame.image.load("assets/room1 (2021_11_27 22_00_04 UTC).png")
+        self.background = pygame.image.load("assets/EMPTY ROOM.png")
         pygame.font.init()  
         pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
@@ -199,8 +199,10 @@ class Controller:
                 #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
+            #self.player.update_wealth()
             self.player.update_health(dt) #update player hunger and thirst
-            self.screen.blit(pygame.transform.scale(self.background, (800,600)), (0, 0))
+            #self.screen.blit(self.background, (0, 0))
+            self.screen.blit(pygame.transform.scale(self.background, (self.width,self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
