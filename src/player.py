@@ -62,7 +62,7 @@ class Player(pygame.sprite.Sprite):
             args: String ('U','D','L', or 'R'), List (Walls), int/float
         '''
         #note: this only moves x and y, not rect.x and rect.y
-        if self.game.inventory.display_inventory:
+        if self.game.inventory.display_inventory or self.game.computer_screen.display_screen:
             return
         is_moving = True
         self.direction = direction
