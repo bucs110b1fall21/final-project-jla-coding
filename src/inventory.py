@@ -1,7 +1,7 @@
 import pygame
 
 WHITE = (255, 255, 255)
-WIDTH = 768
+WIDTH = 800
 TILESIZE = 32
 UIHEIGTH = 500
 INVTILESIZE = 48
@@ -22,8 +22,8 @@ class Inventory:
 		
 	def appendSlots(self):
 		while len(self.inventory_slots) != self.totalSlots:
-			for x in range(WIDTH//2 - ((INVTILESIZE+2) * self.cols)//2, WIDTH//2 + ((INVTILESIZE+2) * self.cols) //2, INVTILESIZE+2):
-				for y in range(UIHEIGTH, UIHEIGTH+INVTILESIZE * self.rows, INVTILESIZE+2):
+			for x in range(WIDTH // 2 - ((INVTILESIZE + 2) * self.cols) // 2, WIDTH // 2 + ((INVTILESIZE + 2) * self.cols) // 2, INVTILESIZE + 2):
+				for y in range(UIHEIGTH, UIHEIGTH + INVTILESIZE * self.rows, INVTILESIZE + 2):
 					self.inventory_slots.append(InventorySlot(x, y))
 
 	def toggleInventory(self):
@@ -117,11 +117,13 @@ class InventorySlot:
 	def drawItems(self, screen):
 		if self.item != None and not self.item.is_moving:
 			self.image = pygame.image.load(self.item.img).convert_alpha()
-			screen.blit(self.image, (self.x-7, self.y-7))
+			self.image = pygame.transform.scale(self.image, (35,35))
+			screen.blit(self.image, (self.x + 5, self.y + 5))
 		if self.item != None and self.item.is_moving:
 			mousepos1 = pygame.mouse.get_pos()
 			self.image = pygame.image.load(self.item.img).convert_alpha()
-			screen.blit(self.image, (mousepos1[0]-20,mousepos1[1]-20))
+			self.image = pygame.transform.scale(self.image, (20,20))
+			screen.blit(self.image, (mousepos1[0] - 15,mousepos1[1] - 15))
 
 
 class EquipableSlot(InventorySlot):

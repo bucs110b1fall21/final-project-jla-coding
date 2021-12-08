@@ -26,9 +26,10 @@ class Economy:
    #plt.plot(yaxis)
    #plt.show()
  
- def ret(self):
-   returning = self.rate
-   return (returning)
+ #def ret(self):
+   #returning = self.rate
+   #return (returning)
+    
    
  def changerate(self):
  
@@ -104,6 +105,9 @@ class Economy:
        #print("coin= ", self.rate)
        self.history.append(self.rate)
        self.ret()
+ def ret(self):
+    returning = self.rate
+    return (returning)
  
  
 
