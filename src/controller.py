@@ -21,6 +21,7 @@ class Controller:
         self.screen = pygame.display.set_mode((self.width, self.height))
         self.background = pygame.Surface(self.screen.get_size()).convert()
         self.background.fill((100, 100, 100))  # set the background to grey
+        self.background = pygame.image.load("assets/room1 (2021_11_27 22_00_04 UTC).png")
         pygame.font.init()  
         pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
@@ -68,10 +69,14 @@ class Controller:
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
-        #food_image = pygame.image.load('assets/WacDonaldsBag.png')
-        #food_image = pygame.transform.scale(food_image, (30,30))
-        food = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
+        food = Consumable('assets/Chickenbag.png', 1, 10, 0)
+        food2 = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
+        beverage = Consumable('assets/WonsterEnergy.png', 1, 0, 10)
+        beverage2 = Consumable('assets/RedbullCan.png', 1, 0, 10)
         self.inventory.addItemInv(food)
+        self.inventory.addItemInv(food2)
+        self.inventory.addItemInv(beverage)
+        self.inventory.addItemInv(beverage2)
     
     def unload_level(self):
         '''
@@ -122,8 +127,8 @@ class Controller:
         self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
         self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
         self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
-        self.moneyimg = pygame.image.load('assets/RedbullCan.png').convert_alpha()
-        self.coinimg = pygame.image.load('assets/WonsterEnergy.png').convert_alpha()
+        self.moneyimg = pygame.image.load('assets/dollar.png').convert_alpha()
+        self.coinimg = pygame.image.load('assets/coin.png').convert_alpha()
         self.screen.blit(self.hunger,(50,8))
         self.screen.blit(self.thirst,(50,58))
         self.screen.blit(self.money,(50,108))
@@ -195,7 +200,7 @@ class Controller:
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
             self.player.update_health(dt) #update player hunger and thirst
-            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(pygame.transform.scale(self.background, (800,600)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
@@ -212,7 +217,6 @@ class Controller:
             args: self
             returns: None
         '''
-        self.player.kill() #this is probably not needed since it removes the player sprite
         self.background.fill((255, 0, 0))
         self.screen.blit(self.background, (0, 0))
         myfont = pygame.font.SysFont(None, 40)
