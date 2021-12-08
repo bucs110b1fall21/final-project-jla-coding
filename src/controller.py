@@ -8,6 +8,8 @@ from src import economy
 from src import wall
 from src import prop
 from src import interactable
+from src import computer
+from src import button
 from src.inventory import Inventory,InventorySlot,EquipableSlot,InventoryItem,Consumable,Equipable
 
 class Controller:
@@ -25,6 +27,9 @@ class Controller:
         pygame.font.init()  
         pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
+        self.economy = economy.Economy()
+        self.computer_screen = computer.ComputerScreen(self)
+        self.inventory = Inventory(self.player,5,5,1)
         
         level_data_ptr = open("src/level_data.json",'r')
         self.level_data = json.load(level_data_ptr) #saves dictionary of levels and their data
@@ -35,7 +40,6 @@ class Controller:
         self.interactables = pygame.sprite.Group() #group of interacts in scene
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
         self.load_level("wall_test")
-        self.state = "GAME"
 
         #self.debug_props = pygame.sprite.Group()       
         #if self.debug_mode: #add debug sprites here
@@ -65,7 +69,6 @@ class Controller:
         self.player.goto(player_data[0], player_data[1])
         self.player.face(player_data[2])
         self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
-        self.inventory = Inventory(self.player,5,5,1)
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
@@ -113,7 +116,7 @@ class Controller:
         '''
         for i in interactions:
             if i == 'computer':
-                print('interacted with computer')
+                self.computer_screen.toggle_display()
             elif i == 'sink':
                 self.player.drink(30)
             else:
@@ -148,7 +151,11 @@ class Controller:
         loop_time = pygame.time.Clock() #keeps track of time since last frame
         prev_key_state = {
             "e": pygame.key.get_pressed()[pygame.K_e],
-            "v": pygame.key.get_pressed()[pygame.K_v]
+            "v": pygame.key.get_pressed()[pygame.K_v],
+            "left": pygame.key.get_pressed()[pygame.K_LEFT],
+            "right": pygame.key.get_pressed()[pygame.K_RIGHT],
+            "down": pygame.key.get_pressed()[pygame.K_DOWN],
+            "up": pygame.key.get_pressed()[pygame.K_UP]
             } #last press state of key
         loop_time.tick() #sets the time to 0
         while self.state == "GAME":
@@ -172,6 +179,24 @@ class Controller:
                 self.player.move('R', self.walls, dt)
             if pressed[pygame.K_v] and not prev_key_state["v"]:
                 self.inventory.toggleInventory()
+            if pressed[pygame.K_UP]:
+                if self.computer_screen.display_screen:
+                    self.computer_screen.increase_button.select()
+                    if not prev_key_state["up"]:
+                        self.computer_screen.increase_percentage()
+            if pressed[pygame.K_DOWN]:
+                if self.computer_screen.display_screen:
+                    self.computer_screen.decrease_button.select()
+                    if not prev_key_state["down"]:
+                        self.computer_screen.decrease_percentage()
+            if pressed[pygame.K_LEFT] and not prev_key_state["left"]:
+                if self.computer_screen.display_screen:
+                    self.computer_screen.sell_button.deselect()
+                    self.computer_screen.buy_button.select()
+            if pressed[pygame.K_RIGHT] and not prev_key_state["right"]:
+                if self.computer_screen.display_screen:
+                    self.computer_screen.buy_button.deselect()
+                    self.computer_screen.sell_button.select()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 if self.inventory.display_inventory:
                     mouse_pos = pygame.mouse.get_pos()
@@ -183,16 +208,27 @@ class Controller:
                 if self.inventory.display_inventory:
                     self.inventory.placeItem(self.screen)
             if pressed[pygame.K_e] and not prev_key_state["e"]: #interacts with objects (will not work if e was pressed last frame)
-                interactions = []
-                for interact in self.interactables: #create list of interactions this frame
-                    interaction = interact.attempt_interact(self.player)
-                    if interaction:
-                        interactions.append(interaction) #add interaction if interaction is not None
-                self.handle_interactions(interactions) #handle interactions
+                if self.computer_screen.display_screen:
+                    self.computer_screen.toggle_display()
+                else:
+                    interactions = []
+                    for interact in self.interactables: #create list of interactions this frame
+                        interaction = interact.attempt_interact(self.player)
+                        if interaction:
+                            interactions.append(interaction) #add interaction if interaction is not None
+                    self.handle_interactions(interactions) #handle interactions
+            if not pressed[pygame.K_DOWN]:
+                self.computer_screen.decrease_button.deselect()
+            if not pressed[pygame.K_UP]:
+                self.computer_screen.increase_button.deselect()
             prev_key_state["e"] = pressed[pygame.K_e]
             prev_key_state["v"] = pressed[pygame.K_v]
+            prev_key_state["left"] = pressed[pygame.K_LEFT]
+            prev_key_state["right"] = pressed[pygame.K_RIGHT]
+            prev_key_state["up"] = pressed[pygame.K_UP]
+            prev_key_state["down"] = pressed[pygame.K_DOWN]
             if pressed[pygame.K_i]: #for testing (i stands for info, add whatever needs testing)
-                print(self.player.hunger, self.player.thirst, self.player.direction)
+                print(self.computer_screen.decrease_button.selected)
 
             # redraw the entire screen
             #if self.debug_mode:
@@ -209,9 +245,9 @@ class Controller:
 
             self.draw_player_stats()
             self.all_sprites.draw(self.screen) #draw sprites
+            self.computer_screen.draw(self.screen)
             self.inventory.draw(self.screen)
             pygame.display.flip() # update the screen
-
         
     def gameOver(self):
         '''
