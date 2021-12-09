@@ -152,7 +152,8 @@ class Controller:
             "right": pygame.key.get_pressed()[pygame.K_RIGHT],
             "down": pygame.key.get_pressed()[pygame.K_DOWN],
             "up": pygame.key.get_pressed()[pygame.K_UP],
-            "return": pygame.key.get_pressed()[pygame.K_RETURN]
+            "return": pygame.key.get_pressed()[pygame.K_RETURN],
+            "space": pygame.key.get_pressed()[pygame.K_SPACE]
             } #last press state of key
         loop_time.tick() #sets the time to 0
         while self.state == "GAME":
@@ -204,7 +205,7 @@ class Controller:
                 if self.computer_screen.display_screen:
                     self.computer_screen.buy_button.deselect()
                     self.computer_screen.sell_button.select()
-            if pressed[pygame.K_RETURN] and not prev_key_state["return"]:
+            if (pressed[pygame.K_RETURN] and not prev_key_state["return"]) or (pressed[pygame.K_SPACE] and not prev_key_state["space"]):
                 if self.computer_screen.buttons[2].selected: #buy button
                     self.computer_screen.buy()
                 elif self.computer_screen.buttons[3].selected: #sell button
@@ -241,6 +242,7 @@ class Controller:
             prev_key_state["up"] = pressed[pygame.K_UP]
             prev_key_state["down"] = pressed[pygame.K_DOWN]
             prev_key_state["return"] = pressed[pygame.K_RETURN]
+            prev_key_state["space"] = pressed[pygame.K_SPACE]
             if pressed[pygame.K_i]: #for testing (i stands for info, add whatever needs testing)
                 print(self.computer_screen.decrease_button.selected)
 
