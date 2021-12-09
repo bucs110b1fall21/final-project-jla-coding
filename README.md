@@ -30,7 +30,7 @@ Start screen has a start button and the end screen has a try again button, that
 is the only buttons the user can click on.
 ![finalgame](assets/finalgame.jpg)
 Has a status bar with a interactable computer sink and a background. The player is animated.
-![finalendscreen](assets/finalendscreen.jpg)
+![finalendscreen](assets/finalendscreen.jpeg)
 Decided not to have a start screen at the end and only have a end screen
 * For example, if your program has a start screen, game screen, and game over screen, you should include a wireframe / screenshot / drawing of each one and a short description of the components
 * << You should also have a screenshot of each screen for your final GUI >>
