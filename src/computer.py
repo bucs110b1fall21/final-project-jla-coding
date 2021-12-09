@@ -75,9 +75,9 @@ class ComputerScreen:
                 button.draw(self.game.screen)
             myfont = pygame.font.SysFont('Calibri', 50)
             screen.blit( myfont.render(f"{self.percentage*100}%" , False, (255,255,255)) ,(350, 350))
-            self.props = (prop.Prop("assets/cashtocoin.png", 200, 300, 0, 0))
-            for p in props:
-                p.draw()
+            self.props = (prop.Prop("assets/cashtocoin.png", 200, 300, 0, 0),)
+            for p in self.props:
+                screen.blit(p.image, (p.rect.x, p.rect.y))
         
     
     

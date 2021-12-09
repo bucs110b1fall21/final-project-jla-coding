@@ -125,7 +125,7 @@ class Controller:
         
         self.hunger = self.myfont.render(f"{int(self.player.hunger)}", False, (250,250,250))
         self.thirst = self.myfont.render(f"{int(self.player.thirst)}" , False, (250,250,250))
-        self.money = self.myfont.render(f"{self.player.money}" , False, (250,250,250))
+        self.money = self.myfont.render(f"{int(self.player.money)/100}" , False, (250,250,250))
         self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
         self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
         self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
