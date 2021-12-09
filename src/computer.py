@@ -61,12 +61,12 @@ class ComputerScreen:
             button.deselect()
     
     def buy(self):
-        self.player.crypto += self.player.money * self.percentage / self.economy.rate
-        self.player.money = self.player.money * self.percentage
+        self.player.crypto += self.player.money * (1-self.percentage) / self.economy.rate
+        self.player.money = self.player.money * (1-self.percentage)
     
     def sell(self):
-        self.player.crypto = self.player.crypto * self.percentage
-        self.player.money += self.player.crypto * self.percentage * self.economy.rate
+        self.player.crypto = self.player.crypto * (1-self.percentage)
+        self.player.money += self.player.crypto * (1-self.percentage) * self.economy.rate
     
     def draw(self, screen):
         if self.display_screen:
