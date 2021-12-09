@@ -7,7 +7,7 @@
 
 << [https://github.com/bucs110b1fall21/final-project-jla-coding<repo>](#) >>
 
-<< [https://docs.google.com/presentation/d/1IdEuChcDVK8BtonAIRtgswvMtfufzISVymEA2mJ2Vbo/edit#slide=id.g106c610e3db_0_0](#) >>
+<< https://docs.google.com/presentation/d/1IdEuChcDVK8BtonAIRtgswvMtfufzISVymEA2mJ2Vbo/edit#slide=id.gc4901a2eb_0_6 >>
 
 ### Team: << JLA Coding >>
 #### Avery vonRoeschlaub, Lukas Ladekarl, Jason Zheng
