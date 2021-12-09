@@ -7,7 +7,7 @@
 
 << [https://github.com/<repo>](#) >>
 
-<< [link to demo presentation slides](#) >>
+<< [https://docs.google.com/presentation/d/1IdEuChcDVK8BtonAIRtgswvMtfufzISVymEA2mJ2Vbo/edit#slide=id.g106c610e3db_0_0](#) >>
 
 ### Team: << JAL COIN >>
 #### Avery vonRoeschlaub, Lukas Ladekarl, Jason Zheng
