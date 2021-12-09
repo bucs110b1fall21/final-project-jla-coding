@@ -122,9 +122,9 @@ class Player(pygame.sprite.Sprite):
         self.thirst += self.thirst_psec * dt/1000
         self.hunger += self.hunger_psec * dt/1000
 
-    #def update_wealth(self):
-        #econ =  economy.Economy()
-        #self.crypto = econ.changerate()
+    def update_wealth(self):
+        econ =  economy.Economy()
+        self.crypto = econ.changerate()
 
         
     

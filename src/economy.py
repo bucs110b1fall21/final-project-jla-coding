@@ -49,7 +49,7 @@ class Economy:
         exit()
       else:
         rand = self.randgen()
-        pygame.time.delay(1000)
+        #pygame.time.delay(0)
         if (rand == 1):
           self.rate = math.trunc(self.rate + (self.rate*1))
           #print("+100%")

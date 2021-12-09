@@ -71,12 +71,8 @@ class Controller:
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
-        food = Consumable('assets/Chickenbag.png', 1, 10, 0)
-        food2 = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
         beverage = Consumable('assets/WonsterEnergy.png', 1, 0, 10)
         beverage2 = Consumable('assets/RedbullCan.png', 1, 0, 10)
-        self.inventory.addItemInv(food)
-        self.inventory.addItemInv(food2)
         self.inventory.addItemInv(beverage)
         self.inventory.addItemInv(beverage2)
     
@@ -179,6 +175,19 @@ class Controller:
                 self.player.move('R', self.walls, dt)
             if pressed[pygame.K_v] and not prev_key_state["v"]:
                 self.inventory.toggleInventory()
+            if pressed[pygame.K_u] and not prev_key_state["u"]:
+                food = Consumable('assets/Chickenbag.png', 1, 10, 0)
+                food2 = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
+                chance = 0
+                chance += random.randrange(1,3)
+                if self.inventory.checkInventory() != 0:
+                    self.player.money -= 2000
+                    if chance == 1:
+                        self.inventory.addItemInv(food)
+                    elif chance == 2:
+                        self.inventory.addItemInv(food2)
+                else:
+                    self.player.money += 0
             if pressed[pygame.K_UP]:
                 if self.computer_screen.display_screen:
                     self.computer_screen.increase_button.select()
@@ -227,6 +236,7 @@ class Controller:
             if not pressed[pygame.K_UP]:
                 self.computer_screen.increase_button.deselect()
             prev_key_state["e"] = pressed[pygame.K_e]
+            prev_key_state["u"] = pressed[pygame.K_u]
             prev_key_state["v"] = pressed[pygame.K_v]
             prev_key_state["left"] = pressed[pygame.K_LEFT]
             prev_key_state["right"] = pressed[pygame.K_RIGHT]
@@ -241,9 +251,8 @@ class Controller:
                 #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
-            #self.player.update_wealth()
+            self.player.update_wealth()
             self.player.update_health(dt) #update player hunger and thirst
-            #self.screen.blit(self.background, (0, 0))
             self.screen.blit(pygame.transform.scale(self.background, (self.width, self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
@@ -263,9 +272,9 @@ class Controller:
         '''
         self.background.fill((255, 0, 0))
         self.screen.blit(self.background, (0, 0))
-        myfont = pygame.font.SysFont(None, 40)
+        myfont = pygame.font.SysFont(None, 75)
         message = myfont.render('Game Over', False, (0, 0, 0))
-        self.screen.blit(message, (self.width / 3, self.height / 3))
+        self.screen.blit(message, (250, 250))
         pygame.display.flip()
         while True:
             for event in pygame.event.get(): #make sure you can quit in gameover
