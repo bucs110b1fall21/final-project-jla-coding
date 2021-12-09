@@ -25,8 +25,8 @@ class Player(pygame.sprite.Sprite):
         self.y = 0
         self.direction = 'D'
         self.money = 100000 #in cents, not dollars
-        econ =  economy.Economy()
-        self.crypto = econ.changerate()
+        self.economy =  economy.Economy()
+        self.crypto = 0
         self.hunger = 100
         self.thirst = 100
         #misc stats

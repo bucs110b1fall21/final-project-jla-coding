@@ -241,9 +241,9 @@ class Controller:
                 #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
-            #self.player.update_wealth()
+            self.economy.changerate(dt)
             self.player.update_health(dt) #update player hunger and thirst
-            #self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.background, (0, 0))
             self.screen.blit(pygame.transform.scale(self.background, (self.width, self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
