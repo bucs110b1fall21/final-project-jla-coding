@@ -1,21 +1,21 @@
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 # CS110 Project Proposal
-# << Project Title >>
+# << Monke Coin Millionaire >>
 ## CS 110 Final Project
 ### << Semester, Year >>
 ### [Assignment Description](https://docs.google.com/document/d/1H4R6yLL7som1lglyXWZ04RvTp_RvRFCCBn6sqv-82ps/edit#)
 
-<< [https://github.com/<repo>](#) >>
+<< [https://github.com/bucs110b1fall21/final-project-jla-coding<repo>](#) >>
 
 << [https://docs.google.com/presentation/d/1IdEuChcDVK8BtonAIRtgswvMtfufzISVymEA2mJ2Vbo/edit#slide=id.g106c610e3db_0_0](#) >>
 
-### Team: << JAL COIN >>
+### Team: << JLA Coding >>
 #### Avery vonRoeschlaub, Lukas Ladekarl, Jason Zheng
 
 ***
 
 ## Project Description *(Software Lead)*
-<< A life simulator that has a satirical take on the modern cryptocurrency market as well as the way Gen Z live. There will be two forms of currency, regular USD and a singular cryptocurrency. The cryptocurrency will move at a random amount while the USD will stay the same, and the user get to move the cash from one currency to the other. The game will start off in your room with your PC which generates crypto and a little cash. The game will start as a cookie clicker as the player tries to make as much money. The User also has to survive, with there being random events and basic human necessities. We will scale by adding more events and more things on the outside to spend cash on.>>
+<< A life simulator that has a satirical take on the modern cryptocurrency market as well as the way Gen Z live. There will be two forms of currency, regular USD and a singular cryptocurrency, monke coin. The cryptocurrency will move at a random amount while the USD will stay the same, and the user get to move the cash from one currency to the other. The game will start off in your room with your PC which generates crypto and a little cash. The game will start as a cookie clicker as the player tries to make as much money. The User also has to survive, with there being random events and basic human necessities. We will scale by adding more events and more things on the outside to spend cash on.>>
 
 ***    
 
@@ -57,12 +57,12 @@ is the only buttons the user can click on.
 
 The Project is broken down into the following file structure:
 * main.py
-* bin
-    * <all of your python files should go here>
+* src
+    * <Icon, button.py, computer.py, controller.py, economy.py, foldercontents.txt, interactable.py, inventory.py, item.py, level_data.json, player.py, prop.py, sample_controller.py, wall.py >
 * assets
-    * <all of your media, i.e. images, font files, etc, should go here)
+    * <BurgerIcon.png, CharacterBack.png, CharacterFront.png, CharacterLeftSide.png, CharacterLeftSide1.png, CharacterLeftSide2.png, CharacterRightSide.png, CharacterRightSide1.png, CharacterRightSide2.png, Chickenbag.png, EMPTY ROOM.png, IMG_3287.jpg, RedbullCan.png, WacDonaldsBag.png, WaterIcon.png, WonsterEnergy.png, black_pixel.png, buy.png, cashtocoin.png, characterbackwalking1.png, characterbackwalking1updated.png, characterbackwalking2.png, characterfrontwalking1.png, characterfrontwalking2.png, chart.png, class_diagram.jpg, coin.png, cointocash.png, computer.png, dollar.png, foldercontents.txt, gamescreen.jpg, main_character_back.png, main_character_front.png, main_character_side_moving.png, room1 (2021_11_27 22_00_04 UTC).png, sell.png, sink.png, startend.jpg>
 * etc
-    * <This is a catch all folder for things that are not part of your project, but you want to keep with your project. Your demo video should go here.>
+    * <foldercontents.txt>
 
 ***
 
@@ -71,7 +71,7 @@ The Project is broken down into the following file structure:
 
 ### Software Lead - <<Lukas Ladekarl>>
 
-<< Worked as integration specialist by... >>
+<< Worked as integration specialist by keeping up with the progress of both team members. Worked on manty files, but was not the main contributor to most, except with economy.py. Designed and created all sprites. Created worked on ideas and worked with the team on how to implement them. Was the only team member with experience with Crypto, so contributed to making the game accurate. >>
 
 ### Front End Specialist - << Jason Zheng >>
 
@@ -82,8 +82,8 @@ The Project is broken down into the following file structure:
 << The back end specialist... >>
 
 ## Testing *(Software Lead)*
-* << Describe your testing strategy for your project. >>
-    * << Example >>
+* << We tested by announcing our commits to each other and have the other group members look over and check out the commits. >>
+    * << On November 25 Avery texts: "Added the level data file and a loading thing for it Also I fixed a movement bug." Both Jason and Lukas pull and check the changes and give positive remarks about the changes. >>
 
 * Your ATP
 
