@@ -125,7 +125,7 @@ class Controller:
         
         self.hunger = self.myfont.render(f"{int(self.player.hunger)}", False, (250,250,250))
         self.thirst = self.myfont.render(f"{int(self.player.thirst)}" , False, (250,250,250))
-        self.money = self.myfont.render(f"{self.player.money}" , False, (250,250,250))
+        self.money = self.myfont.render(f"{int(self.player.money)/100}" , False, (250,250,250))
         self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
         self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
         self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
@@ -154,7 +154,8 @@ class Controller:
             "left": pygame.key.get_pressed()[pygame.K_LEFT],
             "right": pygame.key.get_pressed()[pygame.K_RIGHT],
             "down": pygame.key.get_pressed()[pygame.K_DOWN],
-            "up": pygame.key.get_pressed()[pygame.K_UP]
+            "up": pygame.key.get_pressed()[pygame.K_UP],
+            "return": pygame.key.get_pressed()[pygame.K_RETURN]
             } #last press state of key
         loop_time.tick() #sets the time to 0
         while self.state == "GAME":
@@ -196,6 +197,11 @@ class Controller:
                 if self.computer_screen.display_screen:
                     self.computer_screen.buy_button.deselect()
                     self.computer_screen.sell_button.select()
+            if pressed[pygame.K_RETURN] and not prev_key_state["return"]:
+                if self.computer_screen.buttons[2].selected: #buy button
+                    self.computer_screen.buy()
+                elif self.computer_screen.buttons[3].selected: #sell button
+                    self.computer_screen.sell()
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
                 if self.inventory.display_inventory:
                     mouse_pos = pygame.mouse.get_pos()
@@ -226,6 +232,7 @@ class Controller:
             prev_key_state["right"] = pressed[pygame.K_RIGHT]
             prev_key_state["up"] = pressed[pygame.K_UP]
             prev_key_state["down"] = pressed[pygame.K_DOWN]
+            prev_key_state["return"] = pressed[pygame.K_RETURN]
             if pressed[pygame.K_i]: #for testing (i stands for info, add whatever needs testing)
                 print(self.computer_screen.decrease_button.selected)
 
@@ -242,8 +249,8 @@ class Controller:
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
 
-            self.draw_player_stats()
             self.all_sprites.draw(self.screen) #draw sprites
+            self.draw_player_stats()
             self.computer_screen.draw(self.screen)
             self.inventory.draw(self.screen)
             pygame.display.flip() # update the screen

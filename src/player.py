@@ -2,8 +2,8 @@ import pygame
 from src import economy
 
 PLAYER_SPRITES = {
-        'U': ['assets/CharacterBack.png','assets/CharacterBack.png'],
-        'D': ['assets/CharacterFront.png','assets/CharacterFront.png'],
+        'U': ['assets/characterbackwalking1updated.png','assets/characterbackwalking2updated.png'],
+        'D': ['assets/characterfrontwalking1.png','assets/characterfrontwalking2.png'],
         'L': ['assets/CharacterLeftSide1.png','assets/CharacterLeftSide2.png'],
         'R': ['assets/CharacterRightSide1.png','assets/CharacterRightSide2.png']
 }
