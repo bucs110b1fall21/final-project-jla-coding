@@ -122,7 +122,7 @@ class Controller:
         self.hunger = self.myfont.render(f"{int(self.player.hunger)}", False, (250,250,250))
         self.thirst = self.myfont.render(f"{int(self.player.thirst)}" , False, (250,250,250))
         self.money = self.myfont.render(f"{int(self.player.money)/100}" , False, (250,250,250))
-        self.coins = self.myfont.render(f"{self.player.crypto}" , False, (250,250,250))
+        self.coins = self.myfont.render(f"{int(1000*self.player.crypto)/1000}" , False, (250,250,250))
         self.hungerimg = pygame.image.load('assets/BurgerIcon.png').convert_alpha()
         self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
         self.moneyimg = pygame.image.load('assets/dollar.png').convert_alpha()
@@ -251,8 +251,14 @@ class Controller:
                 #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
+<<<<<<< HEAD
             self.player.update_wealth()
             self.player.update_health(dt) #update player hunger and thirst
+=======
+            self.economy.changerate(dt)
+            self.player.update_health(dt) #update player hunger and thirst
+            self.screen.blit(self.background, (0, 0))
+>>>>>>> eafaf0f7a7986774b2db81a952f5ff805e4f4b0a
             self.screen.blit(pygame.transform.scale(self.background, (self.width, self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:

@@ -19,10 +19,10 @@ PERCENTAGES = (
 
 class ComputerScreen:
     def load_screen(self):
-        self.increase_button = button.Button(350, 300, 90, 30, "+", (37,-3), 50, ((100,200,100),(150,220,150)))
-        self.decrease_button = button.Button(350, 400, 90, 30, "-", (40,-3), 50, ((200,100,100),(220,150,150)))
-        self.buy_button = button.Button(200, 400, 75, 75, "buy", (0,0), 50, ((255,50,50),(255,100,100)))
-        self.sell_button = button.Button(500, 400, 75, 75, "sell", (0,0), 50, ((50,255,75),(100,255,125)))
+        self.increase_button = button.Button(350, 300, 90, 30, "+", (37,-3), 50, ((75,200,75),(100,255,100)), ((200,200,200),(255,255,255)))
+        self.decrease_button = button.Button(350, 400, 90, 30, "-", (40,-3), 50, ((255,75,75),(255,100,100)), ((200,200,200),(255,255,255)))
+        self.buy_button = button.Button(200, 400, 75, 75, "buy", (5,10), 50, ((30,60,150),(40,75,255)), ((150,150,150),(255,255,255)))
+        self.sell_button = button.Button(525, 400, 75, 75, "sell", (5,10), 50, ((150,30,30),(255,40,40)), ((150,150,150),(255,255,255)))
         self.buttons = (self.increase_button, self.decrease_button, self.buy_button, self.sell_button)
 
     def __init__(self, game):
@@ -61,12 +61,12 @@ class ComputerScreen:
             button.deselect()
     
     def buy(self):
-        self.player.crypto += self.player.money * (1-self.percentage) / self.economy.rate
+        self.player.crypto += self.player.money * self.percentage / self.economy.rate
         self.player.money = self.player.money * (1-self.percentage)
     
     def sell(self):
+        self.player.money += self.player.crypto * self.percentage * self.economy.rate
         self.player.crypto = self.player.crypto * (1-self.percentage)
-        self.player.money += self.player.crypto * (1-self.percentage) * self.economy.rate
     
     def draw(self, screen):
         if self.display_screen:
@@ -75,7 +75,12 @@ class ComputerScreen:
                 button.draw(self.game.screen)
             myfont = pygame.font.SysFont('Calibri', 50)
             screen.blit( myfont.render(f"{self.percentage*100}%" , False, (255,255,255)) ,(350, 350))
-            self.props = (prop.Prop("assets/cashtocoin.png", 200, 300, 0, 0),)
+            self.props = (prop.Prop("assets/cashtocoin.png", 200, 300, 84, 32), prop.Prop("assets/cointocash.png", 525, 300, 84, 32), 
+            prop.Prop("assets/dollar.png", 200, 150, 32, 24), prop.Prop("assets/coin.png", 200, 200, 32, 32))
+            myfont = pygame.font.SysFont('Calibri', 32)
+            screen.blit( myfont.render(f"{int(self.player.money)/100}" , False, (255,255,255)), (250,152))
+            screen.blit( myfont.render(f"{int(1000*self.player.crypto)/1000}" , False, (255,255,255)), (250,207))
+            screen.blit( myfont.render(f"rate: {self.economy.rate/100}$/coin" , False, (255,255,255)), (400,175))
             for p in self.props:
                 screen.blit(p.image, (p.rect.x, p.rect.y))
         
