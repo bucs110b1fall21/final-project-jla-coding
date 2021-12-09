@@ -76,17 +76,11 @@ class ComputerScreen:
             myfont = pygame.font.SysFont('Calibri', 50)
             screen.blit( myfont.render(f"{self.percentage*100}%" , False, (255,255,255)) ,(350, 350))
             self.props = (prop.Prop("assets/cashtocoin.png", 200, 300, 84, 32), prop.Prop("assets/cointocash.png", 525, 300, 84, 32), 
-            prop.Prop("assets/dollar.png", 200, 150, 32, 24), prop.Prop("assets/coin.png", 200, 200, 32, 32))
+            prop.Prop("assets/dollar.png", 200, 150, 32, 24), prop.Prop("assets/coin.png", 200, 200, 32, 32), prop.Prop("assets/chart.png", 200, 250, 32, 32))
             myfont = pygame.font.SysFont('Calibri', 32)
             screen.blit( myfont.render(f"{int(self.player.money)/100}" , False, (255,255,255)), (250,152))
             screen.blit( myfont.render(f"{int(1000*self.player.crypto)/1000}" , False, (255,255,255)), (250,207))
-            screen.blit( myfont.render(f"rate: {self.economy.rate/100}$/coin" , False, (255,255,255)), (400,175))
+            screen.blit( myfont.render(f"rate: {self.economy.rate/100}$/coin" , False, (255,255,255)), (250,250))
             for p in self.props:
                 screen.blit(p.image, (p.rect.x, p.rect.y))
-        
-    
-    
-            
-        
-    
     

@@ -32,7 +32,7 @@ class Economy:
    #returning = self.rate
    #return (returning)
     
-
+   
     def changerate(self, dt):
         self.update_timer += dt
         #coin = 1000
@@ -53,23 +53,23 @@ class Economy:
             #    exit()
             #else:
             rand = self.randgen()
-            if (rand == 1):
+            if (rand == 1 and not self.rate > 2000):
                 self.rate = math.trunc(self.rate + (self.rate*1))
                 #print("+100%")
                 #print("coin= ", coin)
-            if (1 < rand <= 3):
+            if (1 < rand <= 3 and not self.rate > 400):
                 self.rate = math.trunc(self.rate + (self.rate*0.69))
                 #print("+69%")
                 #print("coin= ", coin)
-            if (3 < rand <= 6):
+            if (3 < rand <= 6 and not self.rate > 600):
                 self.rate = math.trunc(self.rate + (self.rate*0.42))
                 #print("+42%")
                 #print("coin= ", coin)
-            if (6 < rand <= 12):
+            if (6 < rand <= 12 and not self.rate > 10000):
                 self.rate = math.trunc(self.rate + (self.rate*0.25))
                 #print("+25%")
                 #print("coin= ", coin)
-            if (12 < rand <= 25):
+            if (12 < rand <= 25 and not self.rate > 20000):
                 self.rate = math.trunc(self.rate + (self.rate*0.15))
                 #print("+10%")
                 #print("coin= ", coin)
@@ -85,29 +85,28 @@ class Economy:
                 self.rate = self.rate
                 #print("+0%")
                 #print("coin= ", coin)
-            if (60 < rand <= 70):
+            if (60 < rand <= 70 and not self.rate < 100):
                 self.rate = math.trunc(self.rate - (self.rate*0.02))
                 #print("-2%")
                 #print("coin= ", coin)
-            if (70 < rand <= 80):
+            if (70 < rand <= 80 and not self.rate < 200):
                 self.rate = math.trunc(self.rate - (self.rate*0.05))
                 #print("-5%")
                 #print("coin= ", coin)
-            if (80 < rand <= 95):
+            if (80 < rand <= 95 and not self.rate < 300):
                 self.rate = math.trunc(self.rate - (self.rate*0.1))
                 #print("-10%")
                 #print("coin= ", coin)
-            if (95 < rand <= 99):
+            if (95 < rand <= 99 and not self.rate < 400):
                 self.rate = math.trunc(self.rate - (self.rate*0.25))
                 #print("-25%")
                 #print("coin= ", coin)
-            if (rand == 100):
+            if (rand == 100 and not self.rate < 500):
                 self.rate = math.trunc(self.rate - (self.rate*0.5))
                 #print("-50%")
                 #print("coin= ", coin)
                 #print("coin= ", self.rate)
             self.history.append(self.rate)
-
         return self.rate
     
        
