@@ -78,11 +78,11 @@ The Project is broken down into the following file structure:
 
 ### Front End Specialist -  Jason Zheng
 
- Front-end lead conducted significant research on... 
+ Front-end lead conducted significant research on implementing a usable inventory system. The inventory was necessary for allowing the user to keep its hunger stat up with consuming food. Also worked on backend parts of the inventory like the "u" removing only and adding food. Also added the actively changing stats on the top left. Implemented most sprites into the game. Worked mainly on player.py and controller.py.
 
 ### Back End Specialist - Avery von Roeschlaub
 
- The back end specialist... 
+ The back end specialist worked significantly on the interactables. Created the buy menu and all the controls and movement of values that went with it. Made the animations for the character. Created and managed the datafiles that kept the data for sprites and walls. Worked on most files extensively. 
 
 ## Testing *(Software Lead)*
 *  We tested by announcing our commits to each other and have the other group members look over and check out the commits. 
