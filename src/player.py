@@ -4,8 +4,8 @@ from src import economy
 PLAYER_SPRITES = {
         'U': ['assets/CharacterBack.png','assets/CharacterBack.png'],
         'D': ['assets/CharacterFront.png','assets/CharacterFront.png'],
-        'L': ['assets/CharacterLeftSide.png','assets/CharacterLeftSide.png'],
-        'R': ['assets/CharacterRightSide.png','assets/CharacterRightSide.png']
+        'L': ['assets/CharacterLeftSide1.png','assets/CharacterLeftSide2.png'],
+        'R': ['assets/CharacterRightSide1.png','assets/CharacterRightSide2.png']
 }
 ANIMATION_LENGTH = 500 #in milliseconds
 
@@ -64,7 +64,7 @@ class Player(pygame.sprite.Sprite):
         #note: this only moves x and y, not rect.x and rect.y
         if self.game.inventory.display_inventory or self.game.computer_screen.display_screen:
             return
-        is_moving = True
+        self.is_moving = True
         self.direction = direction
         next_x = self.x
         next_y = self.y
@@ -165,11 +165,12 @@ class Player(pygame.sprite.Sprite):
         #update rect pos to match x and y
         self.rect.x = round(self.x)
         self.rect.y = round(self.y)
+        #print(self.is_moving)
         if self.is_moving:
             animation_num = (0 if pygame.time.get_ticks() % ANIMATION_LENGTH < ANIMATION_LENGTH/2 else 1)
             next_sprite = pygame.image.load( PLAYER_SPRITES[self.direction][animation_num] ).convert_alpha()
-            self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width(), next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
+            self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
         else:
             next_sprite = pygame.image.load( PLAYER_SPRITES[self.direction][0] ).convert_alpha()
             self.image = pygame.transform.scale(next_sprite, (next_sprite.get_width()*2, next_sprite.get_height()*2)) #code for finding img dimentions from https://www.geeksforgeeks.org/getting-width-and-height-of-an-image-in-pygame/
-        is_moviing = False
+        self.is_moving = False

@@ -23,7 +23,7 @@ class Controller:
         self.screen = pygame.display.set_mode((self.width, self.height))
         #self.background.fill((100, 100, 100))
         self.background = pygame.Surface(self.screen.get_size()).convert()
-        self.background = pygame.image.load("assets/EMPTY ROOM.png")
+        self.background.fill((100, 100, 100))
         pygame.font.init()  
         pygame.key.set_repeat(1, 25)  #this may not actually be needed       
         self.player = player.Player(self)
@@ -38,8 +38,7 @@ class Controller:
         self.props = pygame.sprite.Group()
         self.walls = []
         self.interactables = pygame.sprite.Group() #group of interacts in scene
-        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
-        self.load_level("wall_test")
+        self.all_sprites = pygame.sprite.Group(tuple(self.props) + tuple(self.interactables) + (self.player,))
 
         #self.debug_props = pygame.sprite.Group()       
         #if self.debug_mode: #add debug sprites here
@@ -49,7 +48,7 @@ class Controller:
             #self.debug_props.add(self.debug_interact_y)    
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #group of all sprites in scene
 
-        self.load_level("interactable_test") #load test level
+        self.load_level("game_level") #load test level
         self.state = "GAME" #set game to run
     
     def load_level(self, level_name):
@@ -68,7 +67,7 @@ class Controller:
         player_data = data["player_data"]
         self.player.goto(player_data[0], player_data[1])
         self.player.face(player_data[2])
-        self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables))
+        self.all_sprites = pygame.sprite.Group(tuple(self.props) + tuple(self.interactables) + (self.player,))
         self.player.goto(player_data[0], player_data[1]) #move player to correct spot
         self.player.face(player_data[2]) #turn player in correct direction
         #self.all_sprites = pygame.sprite.Group((self.player,) + tuple(self.props) + tuple(self.interactables) + tuple(self.debug_props)) #set all sprites to the new sprite groups (may not be nescesary?)
