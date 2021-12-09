@@ -146,6 +146,7 @@ class Controller:
         loop_time = pygame.time.Clock() #keeps track of time since last frame
         prev_key_state = {
             "e": pygame.key.get_pressed()[pygame.K_e],
+            "u": pygame.key.get_pressed()[pygame.K_u],
             "v": pygame.key.get_pressed()[pygame.K_v],
             "left": pygame.key.get_pressed()[pygame.K_LEFT],
             "right": pygame.key.get_pressed()[pygame.K_RIGHT],
@@ -180,14 +181,11 @@ class Controller:
                 food2 = Consumable('assets/WacDonaldsBag.png', 1, 10, 0)
                 chance = 0
                 chance += random.randrange(1,3)
-                if self.inventory.checkInventory() != 0:
-                    self.player.money -= 2000
-                    if chance == 1:
-                        self.inventory.addItemInv(food)
-                    elif chance == 2:
-                        self.inventory.addItemInv(food2)
-                else:
-                    self.player.money += 0
+                self.player.money -= 2000
+                if chance == 1:
+                    self.inventory.addItemInv(food)
+                elif chance == 2:
+                    self.inventory.addItemInv(food2)
             if pressed[pygame.K_UP]:
                 if self.computer_screen.display_screen:
                     self.computer_screen.increase_button.select()
@@ -251,14 +249,12 @@ class Controller:
                 #self.debug_interact_x.goto(self.player.rect.center[0] - self.player.reach, self.player.rect.center[1])
                 #self.debug_interact_y.goto(self.player.rect.center[0], self.player.rect.center[1] - self.player.reach)
             self.all_sprites.update()
-<<<<<<< HEAD
-            self.player.update_wealth()
+
             self.player.update_health(dt) #update player hunger and thirst
-=======
+
             self.economy.changerate(dt)
             self.player.update_health(dt) #update player hunger and thirst
             self.screen.blit(self.background, (0, 0))
->>>>>>> eafaf0f7a7986774b2db81a952f5ff805e4f4b0a
             self.screen.blit(pygame.transform.scale(self.background, (self.width, self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:

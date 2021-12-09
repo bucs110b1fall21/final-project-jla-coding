@@ -25,10 +25,6 @@ class Inventory:
 			for x in range(WIDTH // 2 - ((INVTILESIZE + 2) * self.cols) // 2, WIDTH // 2 + ((INVTILESIZE + 2) * self.cols) // 2, INVTILESIZE + 2):
 				for y in range(UIHEIGTH, UIHEIGTH + INVTILESIZE * self.rows, INVTILESIZE + 2):
 					self.inventory_slots.append(InventorySlot(x, y))
-	def checkInventory(self):
-		if len(self.inventory_slots) == self.totalSlots:
-			return 0
-
 	def toggleInventory(self):
 		self.display_inventory = not self.display_inventory
 
@@ -44,6 +40,7 @@ class Inventory:
 				slot.item = item
 			else:
 				slot.item = item
+			
 
 	def removeItemInv(self, item):
 		for slot in self.inventory_slots:
