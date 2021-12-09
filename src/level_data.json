@@ -35,16 +35,35 @@
         "walls":[
             [0, 0, 0, 480],
             [0, 0, 640, 0],
-            [640, 0, 640, 480],
+            [640, 0, 600, 480],
             [0, 480, 640, 480]
         ],
         "props":[
             
         ],
         "interactables":[
-            ["computer", "assets/black_pixel.png", 300, 300, 30, 30],
-            ["sink", "assets/black_pixel.png", 400, 300, 30, 30]
+            ["computer", "assets/computer.png", 300, 300, 30, 30],
+            ["sink", "assets/sink.png", 400, 300, 30, 30]
         ],
         "player_data":[100,100,"D"]
+    },
+
+
+
+    "game_level":{
+        "walls":[
+            [0, 0, 0, 480],
+            [0, 0, 640, 0],
+            [640, 0, 600, 480],
+            [0, 480, 640, 480]
+        ],
+        "props":[
+            
+        ],
+        "interactables":[
+            ["computer", "assets/computer.png", 150, 110, 150, 100],
+            ["sink", "assets/sink.png", 600, 110, 100, 100]
+        ],
+        "player_data":[600,500,"D"]
     }
 }

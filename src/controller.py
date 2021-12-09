@@ -132,14 +132,14 @@ class Controller:
         self.thirstimg = pygame.image.load('assets/WaterIcon.png').convert_alpha()
         self.moneyimg = pygame.image.load('assets/dollar.png').convert_alpha()
         self.coinimg = pygame.image.load('assets/coin.png').convert_alpha()
-        self.screen.blit(self.hunger,(50,8))
-        self.screen.blit(self.thirst,(50,58))
-        self.screen.blit(self.money,(50,108))
-        self.screen.blit(self.coins,(50,158))
-        self.screen.blit(self.hungerimg,(20,10))
+        self.screen.blit(self.hunger,(50,30))
+        self.screen.blit(self.thirst,(50,60))
+        self.screen.blit(self.money,(50,90))
+        self.screen.blit(self.coins,(50,120))
+        self.screen.blit(self.hungerimg,(20,30))
         self.screen.blit(self.thirstimg,(20,60))
-        self.screen.blit(self.moneyimg,(20,110))
-        self.screen.blit(self.coinimg,(20,160)) 
+        self.screen.blit(self.moneyimg,(20,90))
+        self.screen.blit(self.coinimg,(20,120)) 
         
     def gameLoop(self):
         '''
@@ -238,7 +238,7 @@ class Controller:
             #self.player.update_wealth()
             self.player.update_health(dt) #update player hunger and thirst
             #self.screen.blit(self.background, (0, 0))
-            self.screen.blit(pygame.transform.scale(self.background, (self.width,self.height)), (0, 0))
+            self.screen.blit(pygame.transform.scale(self.background, (self.width, self.height)), (0, 0))
 
             if self.player.hunger == 0 or self.player.thirst == 0:
                 self.state = "GAMEOVER"
