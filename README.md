@@ -39,33 +39,36 @@ Decided not to have a start screen at the end and only have a end screen
 
 ## Program Design *(Backend Specialist)*
 * Non-Standard libraries
-    *  You should have a list of any additional libraries or modules used (pygame, request) beyond non-standard python. 
-    * For each additional module you should include
-        * url for the module documentation
-        * a short description of the module
+  * None used, although one was planned
 * Class Interface Design
-    *  A simple drawing that shows the class relationships in your code (see below for an example). 
-        * ![class diagram](assets/class_diagram.jpg)
-    * This does not need to be overly detailed, but should show how your code fits into the Model/View/Controller paradigm.
+  * ![class diagram](assets/IMG_3287.jpg)
 * Classes
-  * Player - Stores data on player state and variables such as cash and crypto amount. Also allows iteractions to occur when position and direction are correct (note: I forgot direction variable in the vars in the picture)
-  * Level - Centralizes data on object positions, walls, etc. Also provides data for each zone/level (perhaps this should be in a seperate file?)
-  * Item - pickups and inventory items that can be interacted with. Seperate from interactables as they are not zones and can exist purely in the player's inventroy
-  * Interactable - interaction zones and objects that trigger events when interacted with by player
-  * Economy - data on crypto -> cash rates and previous rates for grpah rendering 
-  * Graphics - GUI and rendering
-    *  You should have a list of each of your classes with a description. 
-
+  * Button - creates a button that has dimentions and text along with selected and deselected colors. Can be w\either selected or unselected
+  * ComputerScreen - handles the interactions and display for the computer screen in game, along with managing the buying and selling of crypto
+  * Controler - the controler of the game. Runs the game on loop and handles events, level loading, initializations, etc
+  * Economy - controls the economy, specifically the rate for crypto to cash. Would also handle stock graphing if it was implemented
+  * Interactable - creates interactable objects that trigger events when interacted with along with testing if the player is interacting with it
+  * Inventory - handles the inventory and interactions in the inventory
+  * InventorySlot - handles individual inventory slots
+  * EquipableSlot - unimplemented
+  * InventoryItem - superclass of Consumable and Equipable
+  * Consumable - creates item that can be consumed - implemented
+  * Equipable - creates item that can be equiped by the player - unimplemented
+  * Item - unused
+  * player - controls the character you control in game. Handles anything involving the player and stats
+  * prop - creates an intangable sprite that can be placed anywhere for aesthetics
+  * wall - defines an area that the player cannot move into. Also checks for collisions
+  
 ## Project Structure *(Software Lead)*
 
 The Project is broken down into the following file structure:
 * main.py
 * src
-    * Icon, button.py, computer.py, controller.py, economy.py, foldercontents.txt, interactable.py, inventory.py, item.py, level_data.json, player.py, prop.py, sample_controller.py, wall.py 
+    * Icon, button.py, computer.py, controller.py, economy.py, foldercontents.txt, interactable.py, inventory.py, item.py, level_data.json, player.py, prop.py, sample\_controller.py, wall.py 
 * assets
-    * BurgerIcon.png, CharacterBack.png, CharacterFront.png, CharacterLeftSide.png, CharacterLeftSide1.png, CharacterLeftSide2.png, CharacterRightSide.png, CharacterRightSide1.png, CharacterRightSide2.png, Chickenbag.png, EMPTY ROOM.png, IMG_3287.jpg, RedbullCan.png, WacDonaldsBag.png, WaterIcon.png, WonsterEnergy.png, black_pixel.png, buy.png, cashtocoin.png, characterbackwalking1.png, characterbackwalking1updated.png, characterbackwalking2.png, characterfrontwalking1.png, characterfrontwalking2.png, chart.png, class_diagram.jpg, coin.png, cointocash.png, computer.png, dollar.png, foldercontents.txt, gamescreen.jpg, main_character_back.png, main_character_front.png, main_character_side_moving.png, room1 (2021_11_27 22_00_04 UTC).png, sell.png, sink.png, startend.jpg
+    * BurgerIcon.png, CharacterBack.png, CharacterFront.png, CharacterLeftSide.png, CharacterLeftSide1.png, CharacterLeftSide2.png, CharacterRightSide.png, CharacterRightSide1.png, CharacterRightSide2.png, Chickenbag.png, EMPTY ROOM.png, IMG\_3287.jpg, RedbullCan.png, WacDonaldsBag.png, WaterIcon.png, WonsterEnergy.png, black\_pixel.png, buy.png, cashtocoin.png, characterbackwalking1.png, characterbackwalking1updated.png, characterbackwalking2.png, characterfrontwalking1.png, characterfrontwalking2.png, chart.png, class\_diagram.jpg, coin.png, cointocash.png, computer.png, dollar.png, foldercontents.txt, gamescreen.jpg, main\_character\_back.png, main\_character\_front.png, main\_character\_side\_moving.png, room1 (2021\_11\_27 22\_00\_04 UTC).png, sell.png, sink.png, startend.jpg
 * etc
-    * foldercontents.txt
+    * foldercontents.txt, Changelog.md
 
 ***
 
@@ -74,7 +77,7 @@ The Project is broken down into the following file structure:
 
 ### Software Lead - Lukas Ladekarl
 
- Worked as integration specialist by keeping up with the progress of both team members. Worked on manty files, but was not the main contributor to most, except with economy.py. Designed and created all sprites. Created worked on ideas and worked with the team on how to implement them. Was the only team member with experience with Crypto, so contributed to making the game accurate. 
+ Worked as integration specialist by keeping up with the progress of both team members. Worked on many files, but was not the main contributor to most, except with economy.py. Designed and created all sprites. Created worked on ideas and worked with the team on how to implement them. Was the only team member with experience with Crypto, so contributed to making the game accurate. 
 
 ### Front End Specialist -  Jason Zheng
 
@@ -103,15 +106,15 @@ The Project is broken down into the following file structure:
 |  1  | press movement keys for character sprite (W, A, S, D)  | Character moves with animation |correct|
 |  8  | up and down arrow keys  | move percent up and down  |correct|
 |  9  | right and left keys | select sell or buy button  | correct |
-|  10  | stats go to 0 | Game End screen  | correct |
+|  10 | stats go to 0 | Game End screen  | correct |
 |  6  | incorporate crypto | rate changes in buy menu |incorrect|
-|  11  | pressing v | opens inventory | correct |   
-|  12  | pressing enter | confirms purchase  | incorrect |
+|  11 | pressing v | opens inventory | correct |   
+|  12 | pressing enter | confirms purchase  | incorrect |
 |  6  | incorporate crypto | rate changes in buy menu |correct|
-|  13  | pressing e | closes buy menu | correct |   
+|  13 | pressing e | closes buy menu | correct |   
 |  14 | incorporate number of coins | stat displayed |correct|
-|  15  | pressing enter | confirms purchase  | correct |
-|  16  | pressing u | buys food  | incorrect |
-|  18  | left click over food | removes food and adds to stats  |correct|
-|  16  | pressing u | buys food | correct |
+|  15 | pressing enter | confirms purchase  | correct |
+|  16 | pressing u | buys food  | incorrect |
+|  18 | left click over food | removes food and adds to stats  |correct|
+|  16 | pressing u | buys food | correct |
    
